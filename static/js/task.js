@@ -1,7 +1,17 @@
-const condition = 0;
+function parseQuery(queryString) {
+    var query = {};
+    var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    }
+    return query;
+}
+
 function resetMazeVars() {
     step = 0;
     seenSpaces = {};
+    scene = getOriginalScene();
 };
 
 function kickOffSpatialTest() {
@@ -19,9 +29,7 @@ function kickOffSpatialTest() {
 
     if (spatialTestList.length < 90) {
         const itemsNeeded = 90 - spatialTestList.length;
-        console.log('itemsNeeded', itemsNeeded)
         const missedToAdd = misses.slice(0, itemsNeeded);
-        console.log('misses.slice(0, itemsNeeded)', missedToAdd.length )
         spatialTestList = spatialTestList.concat(missedToAdd);
     }
     spatialTestList = _.shuffle(spatialTestList);
@@ -51,6 +59,26 @@ var colors = ['static/images/light_gray.png',
 const jsPsych = initJsPsych();
 const timeline = [];
 
+const jspsychID = jsPsych.randomization.randomID(10);
+
+
+// grab worker info
+const url = window.location.href;
+var queryString = url.split('?')[1]
+const queryStringDict = parseQuery(queryString);
+
+jsPsych.data.addProperties({
+    // record the condition assignment in the jsPsych data
+    condition: 0,
+    // this adds a property called 'subject' to every trial
+    subject: queryStringDict['workerId'],
+    hit: queryStringDict['hitId'],
+    assignment: queryStringDict['assignmentId'],
+    session: 0,
+    version: 0,
+    expStartTime: jsPsych.getStartTime(),
+});
+
 var preload = {
     type: jsPsychPreload,
     images: practiceItems1.concat(mazeItems).concat(mazeEndItems).concat(practiceItems2).concat(colors),
@@ -58,9 +86,6 @@ var preload = {
 
 //  PRELOAD
 timeline.push(preload)
-
-// demographics
-// timeline.push(demographicsQuestions());
 
 // randomize maze lengths
 mazeLengths = _.shuffle(mazeLengths);
@@ -73,14 +98,14 @@ encodeItems = mazeItems.slice(0, 192);
 // randomize which mazes are rewarded
 mazeRewarded = _.shuffle(mazeRewarded);
 
-// timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and prese continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+// consent
+timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
 
-// TESTING WM
-//TESTING WM
+// demographics
+timeline.push(demographicsQuestions());
 
 // // ENCODING
-// timeline.push(getProlificId(condition));
-// var scene = getOriginalScene();
+var scene = getOriginalScene();
 
 // // practice!!!!
 timeline.push(mazeInstructions());
@@ -91,7 +116,7 @@ timeline.push(wmInstructions())
 timeline.push(wmPractice(wmPracticeSet))
 timeline.push(continueInstructions(`<br><br><br><h1>Now let's do a second practice maze!</h1><br>`, resetMazeVars));
 timeline.push(practiceMaze(practiceItems2, rewarded=false));
-timeline.push(continueInstructions(`<br><br><br><h1> In between each task, you will play a memory game <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
+// timeline.push(continueInstructions(`<br><br><br><h1> In between each task, you will play a memory game <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
 
 timeline.push(continueInstructions(`<br><br><br><h1> That's it for practice, now you will start the first maze! <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
 
@@ -99,14 +124,13 @@ breakLength = _.shuffle(breakLength);
 wmDisplaySets = _.shuffle(wmDisplaySets);
 var itemsIndex = 0;
 _.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], function (i) {
-    // timeline.push(runMaze(i, itemsIndex));
     var mazeLength = mazeLengths[i];
     var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
     console.log(items)
     itemsIndex += mazeLength;
     timeline.push(practiceMaze(items, rewarded = mazeRewarded[i]));
     itemsIndex += mazeLengths[i];
-    // timeline.push(wmTask(wmDisplaySets[i]))
+    timeline.push(wmTask(wmDisplaySets[i]))
     timeline.push(continueInstructions(`<br><br><br><h1> Now you will start the next maze! <br><br> Maze ${i + 2} / 22 <br><br> </h1>`, resetMazeVars));
 });
 
@@ -155,8 +179,7 @@ timeline.push(getFeedback());
 timeline.push(continueInstructions('End of task - thanks for participating!'));
 
 
-const subject_id = jsPsych.randomization.randomID(10);
-const filename = `${subject_id}.csv`;
+const filename = `${jspsychID}.csv`;
 const save_data = {
     type: jsPsychPipe,
     action: "save",

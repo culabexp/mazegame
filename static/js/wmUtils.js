@@ -121,26 +121,3 @@ function wmPractice(displaySet) {
     }
     return trials;
 }
-
-// function wmPractice(practice) {
-//     console.log('practice!', practice)
-//     var trials = {
-//         type: jsPsychHtmlKeyboardResponse,
-//         response_ends_trial: false,
-//         timeline: [
-//             {
-//                 type: jsPsychHtmlKeyboardResponse,
-//                 trial_duration: 2000,
-//                 response_ends_trial: false,
-//                 data: { trial_type: displaySet[0]['type'] },
-//                 on_start: function(){
-//                     console.log('practice',practice)
-//                 },
-//                 stimulus: 'sceneToHtml(getScene(displaySet[0]))'
-//             },
-//             getWMTrial(displaySet[15]),
-
-//         ]
-//     }
-//     return trials;
-// }

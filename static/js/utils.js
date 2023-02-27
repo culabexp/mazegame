@@ -35,7 +35,7 @@ function demographicsQuestions() {
    var multi_choice_Demo = {
       type: jsPsychSurveyMultiChoice,
       button_label: 'Next',
-      preamble: 'Please answer some questions on demographics.',
+      preamble: '<h2>Please answer some demographic questions</h2>',
       questions: [
          { prompt: "What is your gender?", name: 'DemoQ1', options: DemoQ1_options, required: true },
          // { prompt: "What is your age?", name: 'DemoQ2', options: DemoQ2_options, required: true },
