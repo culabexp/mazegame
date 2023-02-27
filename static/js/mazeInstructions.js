@@ -2,10 +2,10 @@
 
 function continueInstructionsWithMaze(x){
     scene = getOriginalScene()
-    scene[1][3] = "/static/images/selected.png";
+    scene[1][3] = "static/images/selected.png";
     html = sceneToHtml(scene)
     return {
-        type: 'html-button-response',
+        type:jsPsychHtmlButtonResponse,
         response_ends_trial: true,
         stimulus: " <br><br> <h1>Mazes look like this.<br> A black frame will indicate where you are in the maze.<h1> <br><br>"+ html,
         choices: ['Continue']

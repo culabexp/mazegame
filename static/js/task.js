@@ -1,3 +1,8 @@
+function resetMazeVars() {
+    step = 0;
+    seenSpaces = {};
+};
+
 // items we need
 const mazeEndItems = ["static/images/23.jpg", "static/images/mazeover.jpg"];
 
@@ -29,6 +34,20 @@ var preload = {
 
 //  PRELOAD
 timeline.push(preload)
+
+// randomize maze lengths
+mazeLengths = _.shuffle(mazeLengths);
+
+// randomize item order
+mazeItems = _.shuffle(mazeItems);
+encodeItems = mazeItems.slice(0, 192);
+
+
+// randomize which mazes are rewarded
+mazeRewarded = _.shuffle(mazeRewarded);
+
+timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and prese continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+
 
 const hello_trial = {
     type: jsPsychHtmlButtonResponse,

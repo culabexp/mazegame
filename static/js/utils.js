@@ -168,7 +168,7 @@ var scene_orig = [
 function continueInstructions(instructionsHTML, on_start=null){
   var trial = {
      on_start: on_start,
-    type: 'html-button-response',
+    type:jsPsychHtmlButtonResponse,
     stimulus: instructionsHTML,
     choices: ['Continue']
   };

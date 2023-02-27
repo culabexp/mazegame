@@ -33,7 +33,7 @@ function continueInstructionsWithWM(words, display) {
     // html = sceneToHtml(display)
     // conso
     return {
-        type: 'html-button-response',
+        type:jsPsychHtmlButtonResponse,
         response_ends_trial: true,
         // stimulus: html,
         stimulus: function() {
