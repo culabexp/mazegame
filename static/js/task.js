@@ -4,6 +4,23 @@ function resetMazeVars() {
     seenSpaces = {};
 };
 
+function kickOffSpatialTest() {
+    console.log('exuse me')
+    misses = _.shuffle(misses);
+    hits = _.shuffle(hits);
+    console.log('misses', misses)
+    console.log('hits', hits)
+
+    var spatialTestList = hits.slice(0, 90);
+    if (spatialTestList.length < 90) {
+        const itemsNeeded = 90 - spatialTestList.length;
+        spatialTestList += misses.slice(0, itemsNeeded);
+    }
+    console.log('spatialTestList', spatialTestList)
+
+    spatialTestList = _.shuffle(spatialTestList);
+};
+
 // items we need
 const mazeEndItems = ["static/images/23.jpg", "static/images/mazeover.jpg"];
 
@@ -105,14 +122,45 @@ timeline.push(testInstruct);
 // randomize item order again before old/new test
 mazeItems = _.shuffle(mazeItems);
 
-// old/new test
-_.each(mazeItems, function (x) {
-    timeline.push(oldNew(x))
+// PHASE 2 old/new test
+_.each(mazeItems.slice(0,10), function (x, index) {
+    timeline.push(oldNew(x, index))
     timeline.push(confidence(x))
 });
 
 // // randomize item order again before spatial test
 mazeItems = _.shuffle(mazeItems);
+
+// Phase 3—Surprise spatial location memory test:
+// We randomly selected 60 objects that were correctly identified as old objects during the Phase 2: recognition memory test.
+// If a participant did not have enough hit trials(in Experiment 1, this applied to two participants in the 24 - hour condition),
+//  the balance of trials was filled with miss trials, and these trials were removed from subsequent analyses.
+// misses = _.shuffle(misses);
+// hits = _.shuffle(hits);
+// console.log('misses', misses)
+// console.log('hits', hits)
+
+// var spatialTestList = hits.slice(0, 90);
+// if (spatialTestList.length < 90) {
+//     const itemsNeeded = 90 - spatialTestList.length;
+//     spatialTestList += misses.slice(0, itemsNeeded);
+// }
+// console.log('spatialTestList', spatialTestList)
+
+// spatialTestList = _.shuffle(spatialTestList);
+var spatialTestList = null;
+timeline.push(continueInstructions('<h2>Now you will do a spatial memory test</h2>', kickOffSpatialTest))
+
+
+// spatial test
+_.each(spatialTestList, function (x) {
+    timeline.push(spatialTestItem(x))
+    // timeline.push(spatialTest(x))
+});
+timeline.push(getFeedback());
+
+timeline.push(continueInstructions('End of task - thanks for participating!'));
+
 
 const subject_id = jsPsych.randomization.randomID(10);
 const filename = `${subject_id}.csv`;

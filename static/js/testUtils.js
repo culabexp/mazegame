@@ -26,9 +26,9 @@ function recordSpatialTestMove(item, location, response, rt){
 }
 
 
-function oldNew(img){
+function oldNew(img, index){
   var trial = {
-		prompt: "<h2>Is this image old or new?</h2>",
+    prompt: `<h2>${index+1}. Is this image old or new?</h2>`,
     type: jsPsychImageButtonResponse,
     margin_horizontal:'20px',
     margin_vertical:'0px',
@@ -36,8 +36,10 @@ function oldNew(img){
     choices: ['old', 'new'],
     on_finish: function(data){
       const respIndex = data['response'];
+      // console.log("data['response']", data['response']);
       data['response'] = oldNew_choices[data['response']];
-      itemIsOld = _.include(encodeItems, img)
+      var itemIsOld = _.include(encodeItems, img)
+      console.log('itemIsOld', itemIsOld)
       if ((data['response'] == 'old')&(itemIsOld)){
         data['grade'] = 'hit';
         hits.push(img);
@@ -116,59 +118,88 @@ function move_image(selected_space, key_pressed, image){
 }
 
 
-function spatialTest(image){
+function runSpatialTest(items) {
 
-  var mazeTrial = {
-      type: 'vsl-grid-scene',
-      stimuli: function(){
-        scene = JSON.parse(JSON.stringify(scene_orig));
-        return scene;
-      },
-      trial_duration: 150000000,
-      on_load: function(){
-        console.log('onload ')
-        selected = [_.random(4), _.random(4)];
-        inKeyDown = false;
-        // start the first trial! selecting the first square
-        row = selected[0]
-        col = selected[1]
-        selected_id_next = `jspsych-vsl-grid-scene-table-cell-${row}-${col}`
-        document.getElementById(selected_id_next).firstChild.src = image;
-      },
-  		on_start: function(){
-        time = jsPsych.totalTime();
-        console.log('in onstart', selected)
-
-  			$(document).keydown(function(e) {
-              e.preventDefault();
-              console.log(selected)
-  						if (e.which == 38 && inKeyDown == false) { // up
-  						selected =	move_image(selected, 'up', image);
-  						}
-  						if (e.which == 39 && inKeyDown == false){ // right
-                selected = move_image(selected, 'right', image);
-  						}
-  						if (e.which == 37  && inKeyDown == false) {  // left
-                selected = move_image(selected, 'left', image);
-  						}
-  						if (e.which == 40 && inKeyDown == false) {  // down
-                selected = move_image(selected, 'down', image);
-  						} if (e.key == " " || e.code == "Space" || e.keyCode == 32 ) {  // space
-                selected = move_image(selected, 'space', image);
-    					}
-  			});
+  var trials = {
+    type: jsPsychHtmlKeyboardResponse,
+    timeline: [
+      spatialTestLoop(items),
+    ]
+  }
+  return trials;
+}
 
 
-  		}
-  };
 
-  return mazeTrial;
-};
+function spatialTestItem(item) {
+  return {
+    type: jsPsychHtmlKeyboardResponse,
+    trial_duration: 2500,
+    response_ends_trial: false,
+    data: { scene: scene, x: x, y: y, step: step },
+    save_trial_parameters: { trial_duration: true },
+    stimulus: function () {
+      var scene = getOriginalScene;
+      scene[0][0] = item;
+      return sceneToHtml(scene);
+    },
+  }
+}
+
+
+// function spatialTest(image){
+
+//   var mazeTrial = {
+//       type: 'vsl-grid-scene',
+//       stimuli: function(){
+//         scene = JSON.parse(JSON.stringify(scene_orig));
+//         return scene;
+//       },
+//       trial_duration: 150000000,
+//       on_load: function(){
+//         console.log('onload ')
+//         selected = [_.random(4), _.random(4)];
+//         inKeyDown = false;
+//         // start the first trial! selecting the first square
+//         row = selected[0]
+//         col = selected[1]
+//         selected_id_next = `jspsych-vsl-grid-scene-table-cell-${row}-${col}`
+//         document.getElementById(selected_id_next).firstChild.src = image;
+//       },
+//   		on_start: function(){
+//         time = jsPsych.totalTime();
+//         console.log('in onstart', selected)
+
+//   			$(document).keydown(function(e) {
+//               e.preventDefault();
+//               console.log(selected)
+//   						if (e.which == 38 && inKeyDown == false) { // up
+//   						selected =	move_image(selected, 'up', image);
+//   						}
+//   						if (e.which == 39 && inKeyDown == false){ // right
+//                 selected = move_image(selected, 'right', image);
+//   						}
+//   						if (e.which == 37  && inKeyDown == false) {  // left
+//                 selected = move_image(selected, 'left', image);
+//   						}
+//   						if (e.which == 40 && inKeyDown == false) {  // down
+//                 selected = move_image(selected, 'down', image);
+//   						} if (e.key == " " || e.code == "Space" || e.keyCode == 32 ) {  // space
+//                 selected = move_image(selected, 'space', image);
+//     					}
+//   			});
+
+
+//   		}
+//   };
+
+//   return mazeTrial;
+// };
 
 
 function getFeedback(){
   var trial = {
-    type: 'survey-text',
+    type: jsPsychSurveyText,
       questions: [
       {prompt: "<h2>Do you have any feedback for us? Encounter any technical errors?</h2><br><br>",
        placeholder: "                        ", required: true, rows: 5,
