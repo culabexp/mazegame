@@ -1,5 +1,64 @@
 const VERSION = 0.0
 
+function getFeedback() {
+   var trial = {
+      type: jsPsychSurveyText,
+      questions: [
+         {
+            prompt: "<h2>Do you have any feedback for us? Encounter any technical errors?</h2><br><br>",
+            placeholder: "                        ", required: true, rows: 5,
+            name: 'feedback',
+         },
+
+      ],
+   };
+   return trial;
+}
+
+function demographicsQuestions() {
+   var DemoQ1_options = ["Male", "Female", "Gender Non-conforming", "Other", "Choose not to respond"];
+   var DemoQ2_options = ["Under 18", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84", "85 or older"];
+   var DemoQ3_options = ["Hispanic/Latino", "Not Hispanic/Latino", "Choose not to respond"];
+   var DemoQ4_options = ["American Indian/Native American", "White", "Black/African American", "Asian", "Native Hawaiian or Pacific Islander", "More than one race", "Other", "Choose not to respond"];
+   var DemoQ5_options = ["Less than a high school diploma", "High school degree or equivalent (e.g. GED)", "Some college, no degree", "Associate degree (e.g. AA, AS)", "College degree", "Master's degree (e.g. MA, MS, MEd)", "Doctorate or professional degree (e.g. MD, DDS, PhD)"];
+
+   var all_that_apply = {
+      type: jsPsychSurveyMultiSelect,
+      questions: [
+         {
+            prompt: "How would you describe yourself? Please select all that apply.",
+            options: DemoQ4_options,
+            horizontal: false,
+            required: true,
+            name: 'DemoQ4'
+         },]
+   };
+   var multi_choice_Demo = {
+      type: jsPsychSurveyMultiChoice,
+      button_label: 'Next',
+      preamble: 'Please answer some questions on demographics.',
+      questions: [
+         { prompt: "What is your gender?", name: 'DemoQ1', options: DemoQ1_options, required: true },
+         // { prompt: "What is your age?", name: 'DemoQ2', options: DemoQ2_options, required: true },
+         { prompt: "What is your Ethnicity?", name: 'DemoQ3', options: DemoQ3_options, required: true },
+         { prompt: "What is the highest degree or level of school you have completed?", name: 'DemoQ5', options: DemoQ5_options, required: true },
+      ],
+   };
+
+   var age = {
+      type: jsPsychSurveyText,
+      questions: [
+         {
+            prompt: "What is your age?",
+            placeholder: "  ", required: true, rows: 1,
+            name: 'age',
+         },
+
+      ],
+   };
+
+   return { timeline: [multi_choice_Demo, age, all_that_apply] };
+}
 
 
 function getOriginalScene() {

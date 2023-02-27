@@ -59,6 +59,9 @@ var preload = {
 //  PRELOAD
 timeline.push(preload)
 
+// demographics
+timeline.push(demographicsQuestions());
+
 // randomize maze lengths
 mazeLengths = _.shuffle(mazeLengths);
 
