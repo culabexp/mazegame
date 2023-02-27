@@ -8,10 +8,21 @@ function kickOffSpatialTest() {
     step = 0;
     misses = _.shuffle(misses);
     hits = _.shuffle(hits);
+
+    console.log('misses', misses.length)
+    console.log('hits', hits.length)
+
+
     spatialTestList = hits.slice(0, 90);
+    console.log('kickOffSpatialTest   spatialTestList', spatialTestList)
+    console.log('kickOffSpatialTest   spatialTestList', spatialTestList.length)
+
     if (spatialTestList.length < 90) {
         const itemsNeeded = 90 - spatialTestList.length;
-        spatialTestList += misses.slice(0, itemsNeeded);
+        console.log('itemsNeeded', itemsNeeded)
+        const missedToAdd = misses.slice(0, itemsNeeded);
+        console.log('misses.slice(0, itemsNeeded)', missedToAdd.length )
+        spatialTestList = spatialTestList.concat(missedToAdd);
     }
     spatialTestList = _.shuffle(spatialTestList);
 };

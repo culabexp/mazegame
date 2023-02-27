@@ -80,6 +80,7 @@ function spatialTestItem() {
     stimulus: function () {
       console.log('in stim???', spatialTestList)
       var scene = getOriginalScene();
+      console.log('spatialTestList[0', spatialTestList[0])
       scene[0][0] = spatialTestList[0];
       return sceneToHtml(scene);
     },
@@ -93,8 +94,7 @@ function spatialTestItemLoop() {
         console.log('fuckFUCK spatialTestItemLoop')
       },
       loop_function: function () {
-        console.log('spatialTestItemLoop', spatialTestItemLoop)
-        console.log('in loop', 'step', step, 'items.length', spatialTestList.length)
+        console.log('in loop', 'step', step, 'items.length', spatialTestList.length, 'spatialTestList', spatialTestList)
         if (step < spatialTestList.length) {
           return true;
         } else {
