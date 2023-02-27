@@ -5,19 +5,14 @@ function resetMazeVars() {
 };
 
 function kickOffSpatialTest() {
-    console.log('exuse me')
+    step = 0;
     misses = _.shuffle(misses);
     hits = _.shuffle(hits);
-    console.log('misses', misses)
-    console.log('hits', hits)
-
-    var spatialTestList = hits.slice(0, 90);
+    spatialTestList = hits.slice(0, 90);
     if (spatialTestList.length < 90) {
         const itemsNeeded = 90 - spatialTestList.length;
         spatialTestList += misses.slice(0, itemsNeeded);
     }
-    console.log('spatialTestList', spatialTestList)
-
     spatialTestList = _.shuffle(spatialTestList);
 };
 
@@ -123,7 +118,7 @@ timeline.push(testInstruct);
 mazeItems = _.shuffle(mazeItems);
 
 // PHASE 2 old/new test
-_.each(mazeItems.slice(0,10), function (x, index) {
+_.each(mazeItems.slice(0,6), function (x, index) {
     timeline.push(oldNew(x, index))
     timeline.push(confidence(x))
 });
@@ -151,14 +146,19 @@ mazeItems = _.shuffle(mazeItems);
 var spatialTestList = null;
 timeline.push(continueInstructions('<h2>Now you will do a spatial memory test</h2>', kickOffSpatialTest))
 
+console.log('spatialTestItemLoop', spatialTestItemLoop)
+timeline.push(spatialTestItemLoop())
 
-// spatial test
-_.each(spatialTestList, function (x) {
-    timeline.push(spatialTestItem(x))
-    // timeline.push(spatialTest(x))
-});
-timeline.push(getFeedback());
+// // spatial test
+// _.each(spatialTestList, function (x) {
+//     console
+//     timeline.push(runSpatialTest(x))
+//     // timeline.push(spatialTest(x))
+// });
 
+
+
+// timeline.push(getFeedback());
 timeline.push(continueInstructions('End of task - thanks for participating!'));
 
 
