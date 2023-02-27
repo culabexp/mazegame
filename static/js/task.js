@@ -60,7 +60,7 @@ var preload = {
 timeline.push(preload)
 
 // demographics
-timeline.push(demographicsQuestions());
+// timeline.push(demographicsQuestions());
 
 // randomize maze lengths
 mazeLengths = _.shuffle(mazeLengths);
@@ -158,21 +158,11 @@ mazeItems = _.shuffle(mazeItems);
 
 // spatialTestList = _.shuffle(spatialTestList);
 var spatialTestList = null;
-timeline.push(continueInstructions('<h2>Now you will do a spatial memory test</h2>', kickOffSpatialTest))
-
-console.log('spatialTestItemLoop', spatialTestItemLoop)
+timeline.push(continueInstructions('<h2>Now you will do another type of memory test</h2>', kickOffSpatialTest))
+// timeline.push(continueInstructions('<h2>Using the arrow keys, move the item to where you remember seeing it in the maze game <br> Press space to contin</h2>', kickOffSpatialTest))
 timeline.push(spatialTestItemLoop())
 
-// // spatial test
-// _.each(spatialTestList, function (x) {
-//     console
-//     timeline.push(runSpatialTest(x))
-//     // timeline.push(spatialTest(x))
-// });
-
-
-
-// timeline.push(getFeedback());
+timeline.push(getFeedback());
 timeline.push(continueInstructions('End of task - thanks for participating!'));
 
 

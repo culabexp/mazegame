@@ -66,7 +66,7 @@ function confidence(img){
   };
   return trial;
 }
-
+const spatialTestPrompt = '<h4>Using the arrow keys, move the item to where you remember seeing it in the maze game.<br> Press the <b>spacebar</b> to finalize your answer</h4>'
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
@@ -86,7 +86,7 @@ function showSpatialTestItem() {
       scene[y][x] = spatialTestList[step];
     
 
-      return sceneToHtml(scene);
+      return spatialTestPrompt + sceneToHtml(scene);
     },
   }
 }
@@ -109,12 +109,11 @@ function moveSpatialTestItem(){
       }
       console.log('\ny', y)
       console.log('x', y)
-      var choices = ['space', 'spacebar', ' '];
+      var choices = [ ' '];
       if (y != 0) { choices.push('arrowup') };
       if (y != 4) { choices.push('arrowdown') };
       if (x != 0) { choices.push('arrowleft') };
       if (x != 4) { choices.push('arrowright') };
-      console.log('choices', choices)
       return choices;
     },
     stimulus: function () {
@@ -133,7 +132,7 @@ function moveSpatialTestItem(){
       // step = step + 1;
       var item = spatialTestList[step];
       scene[y][x] = item;
-      return sceneToHtml(scene);
+      return spatialTestPrompt + sceneToHtml(scene);
     },
   }
 }
