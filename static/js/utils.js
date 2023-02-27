@@ -17,9 +17,8 @@ function getFeedback() {
 
 function demographicsQuestions() {
    var DemoQ1_options = ["Male", "Female", "Gender Non-conforming", "Other", "Choose not to respond"];
-   var DemoQ2_options = ["Under 18", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84", "85 or older"];
    var DemoQ3_options = ["Hispanic/Latino", "Not Hispanic/Latino", "Choose not to respond"];
-   var DemoQ4_options = ["American Indian/Native American", "White", "Black/African American", "Asian", "Native Hawaiian or Pacific Islander", "More than one race", "Other", "Choose not to respond"];
+   var DemoQ4_options = ["American Indian/Native American", "White", "Black/African American", "Asian", "Native Hawaiian or Pacific Islander", "Other", "Choose not to respond"];
    var DemoQ5_options = ["Less than a high school diploma", "High school degree or equivalent (e.g. GED)", "Some college, no degree", "Associate degree (e.g. AA, AS)", "College degree", "Master's degree (e.g. MA, MS, MEd)", "Doctorate or professional degree (e.g. MD, DDS, PhD)"];
 
    var all_that_apply = {
@@ -48,11 +47,8 @@ function demographicsQuestions() {
    var age = {
       type: jsPsychSurveyText,
       questions: [
-         {
-            prompt: "What is your age?",
-            placeholder: "  ", required: true, rows: 1,
-            name: 'age',
-         },
+         {prompt: "What is your age?", placeholder: "99", required: true, rows: 1,name: 'age',},
+         {prompt: "What is your zipcode?", placeholder: "11111", required: true, rows: 1, name: 'zip', },
 
       ],
    };
