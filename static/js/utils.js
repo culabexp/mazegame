@@ -115,7 +115,7 @@ function onFinish(data){
 function getProlificId(conditon){
   console.log('in prol id', conditon)
   var trial = {
-    type: 'survey-text',
+   type: jsPsychSurveyText,
     on_finish: function(data) {
       const subjectId = data['response']['prolific_id'];
       const session = data['response']['session_number'];
@@ -129,7 +129,7 @@ function getProlificId(conditon){
         session: 0,
 
         version: VERSION,
-        expStartTime: jsPsych.startTime(),
+         expStartTime: jsPsych.getStartTime(),
       });
     },
     questions: [
@@ -149,19 +149,19 @@ function getProlificId(conditon){
 
 
 var image_grid = [
-  ["/static/images/4063.jpg", "/static/images/4067.jpg","/static/images/4072.jpg",  "/static/images/4077.jpg","/static/images/4082.jpg"],
-  ["/static/images/4062.jpg", "/static/images/4068.jpg","/static/images/4073.jpg",  "/static/images/4078.jpg","/static/images/4083.jpg"],
-  ["/static/images/4064.jpg", "/static/images/4069.jpg","/static/images/4074.jpg",  "/static/images/4079.jpg","/static/images/4084.jpg"],
-	["/static/images/4065.jpg", "/static/images/4070.jpg","/static/images/4075.jpg",  "/static/images/4080.jpg","/static/images/4085.jpg"],
-  ["/static/images/4066.jpg", "/static/images/4071.jpg","/static/images/4076.jpg",  "/static/images/4081.jpg","/static/images/4086.jpg"]
+  ["static/images/4063.jpg", "static/images/4067.jpg","static/images/4072.jpg",  "static/images/4077.jpg","static/images/4082.jpg"],
+  ["static/images/4062.jpg", "static/images/4068.jpg","static/images/4073.jpg",  "static/images/4078.jpg","static/images/4083.jpg"],
+  ["static/images/4064.jpg", "static/images/4069.jpg","static/images/4074.jpg",  "static/images/4079.jpg","static/images/4084.jpg"],
+	["static/images/4065.jpg", "static/images/4070.jpg","static/images/4075.jpg",  "static/images/4080.jpg","static/images/4085.jpg"],
+  ["static/images/4066.jpg", "static/images/4071.jpg","static/images/4076.jpg",  "static/images/4081.jpg","static/images/4086.jpg"]
 ]
 
 var scene_orig = [
-  ["/static/images/light_gray.png", "/static/images/light_gray.png","/static/images/light_gray.png",  "/static/images/light_gray.png","/static/images/light_gray.png"],
-  ["/static/images/light_gray.png", "/static/images/light_gray.png","/static/images/light_gray.png",  "/static/images/light_gray.png","/static/images/light_gray.png"],
-  ["/static/images/light_gray.png", "/static/images/light_gray.png","/static/images/light_gray.png",  "/static/images/light_gray.png","/static/images/light_gray.png"],
-	["/static/images/light_gray.png", "/static/images/light_gray.png","/static/images/light_gray.png",  "/static/images/light_gray.png","/static/images/light_gray.png"],
-  ["/static/images/light_gray.png", "/static/images/light_gray.png","/static/images/light_gray.png",  "/static/images/light_gray.png","/static/images/light_gray.png"]
+  ["static/images/light_gray.png", "static/images/light_gray.png","static/images/light_gray.png",  "static/images/light_gray.png","static/images/light_gray.png"],
+  ["static/images/light_gray.png", "static/images/light_gray.png","static/images/light_gray.png",  "static/images/light_gray.png","static/images/light_gray.png"],
+  ["static/images/light_gray.png", "static/images/light_gray.png","static/images/light_gray.png",  "static/images/light_gray.png","static/images/light_gray.png"],
+	["static/images/light_gray.png", "static/images/light_gray.png","static/images/light_gray.png",  "static/images/light_gray.png","static/images/light_gray.png"],
+  ["static/images/light_gray.png", "static/images/light_gray.png","static/images/light_gray.png",  "static/images/light_gray.png","static/images/light_gray.png"]
 ]
 
 

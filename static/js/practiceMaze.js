@@ -7,7 +7,7 @@ var started=false;
 var sceneSpaces = {};
 
 var late_trial = {
-    type: 'html-keyboard-response',
+    type: jsPsychHtmlKeyboardResponse,
     data: { scene: scene, x: x, y: y, step: step },
     trial_duration: 2000,
     response_ends_trial: false,
@@ -34,7 +34,7 @@ var check_for_late = {
 
 function showMazeItem(items){
     return {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         trial_duration: 2500,
         response_ends_trial: false,
         data: { scene: scene, x:x, y:y, step:step },
@@ -68,7 +68,7 @@ function showMazeItem(items){
 
 function showSelector(){
     return {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         trial_duration: 2000,
         response_ends_trial: true,
         data: { x: x, y: y, scene: scene, step: step },
@@ -87,7 +87,7 @@ function showSelector(){
             return choices;
         },
         stimulus: function () {
-            scene[y][x] = '/static/images/selected.png'
+            scene[y][x] = 'static/images/selected.png'
             return sceneToHtml(scene);
         },
     }
@@ -95,7 +95,7 @@ function showSelector(){
 
 function showBlankSquare() {
     return {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         data: { x: x, y: y, scene: scene, step: step },
         trial_duration: function(){
             var time_options = [.5, 1, 1.5, 2, 2.5, 3, 3.5];
@@ -105,7 +105,7 @@ function showBlankSquare() {
         response_ends_trial: false,
         choices: ['`'], 
         stimulus: function () {
-            scene[y][x] = '/static/images/white.jpg';
+            scene[y][x] = 'static/images/white.jpg';
             return sceneToHtml(scene);
         },
     }
@@ -182,13 +182,13 @@ var end_maze_loop = {
 function practiceMaze(items, rewarded){
     mazeNumber = 0;
     if (rewarded) {
-        items.push("/static/images/23.jpg");
+        items.push("static/images/23.jpg");
     } else {
-        items.push("/static/images/mazeover.jpg");
+        items.push("static/images/mazeover.jpg");
     }
 
     var trials = {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         timeline: [
             showItemLoop(items),
         ]

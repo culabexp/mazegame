@@ -11,19 +11,19 @@
 
 
 const dist1 = {
-    'colors': ['/static/images/purple.jpg',
-        '/static/images/purple.jpg',
-        '/static/images/purple.jpg',
-        '/static/images/red.jpg'],
+    'colors': ['static/images/purple.jpg',
+        'static/images/purple.jpg',
+        'static/images/purple.jpg',
+        'static/images/red.jpg'],
     'locations': [[0, 0], [3, 4], [2, 3], [2, 1]],
     'type': 'target'
 }
 
 const dist2 = {
-    'colors': ['/static/images/purple.jpg',
-        '/static/images/purple.jpg',
-        '/static/images/green.jpg',
-        '/static/images/red.jpg'],
+    'colors': ['static/images/purple.jpg',
+        'static/images/purple.jpg',
+        'static/images/green.jpg',
+        'static/images/red.jpg'],
     'locations': [[0, 3], [3, 4], [2, 3], [2, 1]],
     'type': 'target'
 }
@@ -51,11 +51,11 @@ function continueInstructionsWithWM(words, display) {
 
 function wmInstructions() {
     var trials = {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         timeline: [
             continueInstructions('<h1> <br><br><br> In between mazes you will play the <b>Match Game </b> <br><br><br></h1>'),
             continueInstructionsWithWM('<h1> You will see a pattern on the screen like this<br><br>', dist1),
-            continueInstructionsWithWM('<h1> After, you will see several other patterns.<br><br> When the pattern is <i>exactly</i> the same as the first pattern <br><i>(same color squares, same locations)</i> <br>click "up" !<br><br><img src="/static/images/keys_up_circle.png" width="135" height="100"><br>', dist1),
+            continueInstructionsWithWM('<h1> After, you will see several other patterns.<br><br> When the pattern is <i>exactly</i> the same as the first pattern <br><i>(same color squares, same locations)</i> <br>click "up" !<br><br><img src="static/images/keys_up_circle.png" width="135" height="100"><br>', dist1),
             continueInstructionsWithWM('<h1> So if the next pattern looks like this — do not click up! <br><br><br>', dist2),
             continueInstructionsWithWM('<h1> But if the third pattern looks like this — click up! <br><br><br>', dist1),
             continueInstructions("<h1> <br><br><br> Now we we'll do a practice version of the <b>Match Game</b>. <br><br> Get ready! <br><br><br></h1>"),

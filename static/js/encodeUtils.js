@@ -69,7 +69,7 @@ function startNextTrial(row, col, stepsNow){
                    [row, col])
   selected_id_next = `jspsych-vsl-grid-scene-table-cell-${row}-${col}`
    // replace image being shown with the square indicating that spot is selected
-  document.getElementById(selected_id_next).firstChild.src = "/static/images/selected.png";
+  document.getElementById(selected_id_next).firstChild.src = "static/images/selected.png";
   inKeyDown=false;
   time = jsPsych.totalTime();
 
@@ -82,11 +82,11 @@ function startNextTrial(row, col, stepsNow){
       blank_screen_seconds = _.sample(time_options, [1])[0]
 
       inKeyDown = true;
-      document.getElementById(selected_id_next).firstChild.src = "/static/images/20.jpg";
+      document.getElementById(selected_id_next).firstChild.src = "static/images/20.jpg";
       window.setTimeout(function(){
         $("#late").remove();
 
-        document.getElementById(selected_id_next).firstChild.src = "/static/images/selected.png";
+        document.getElementById(selected_id_next).firstChild.src = "static/images/selected.png";
         inKeyDown = false;
       }, blank_screen_seconds*1000);
     }
@@ -105,9 +105,9 @@ function showItem(row, col, steps){
   //  end maze if partiicpant reached the end
   if (steps > currMazeLength) {
     if (rewarded) {
-      image = "/static/images/23.jpg";
+      image = "static/images/23.jpg";
     } else {
-      image = "/static/images/mazeover.jpg";
+      image = "static/images/mazeover.jpg";
     }
     window.setTimeout(function(){
       $(document).unbind('keydown');
@@ -120,7 +120,7 @@ function showItem(row, col, steps){
       blank_screen_seconds = _.sample(time_options, [1])[0]
 
       console.log(blank_screen_seconds)
-      document.getElementById(selected_id_next).firstChild.src = "/static/images/20.jpg";
+      document.getElementById(selected_id_next).firstChild.src = "static/images/20.jpg";
       window.setTimeout(function(){
         startNextTrial(row, col, steps);
       }, blank_screen_seconds*1000);
@@ -157,10 +157,10 @@ function change_selected(selected, key_pressed){
 	} else {
 		selected_id = `jspsych-vsl-grid-scene-table-cell-${selected[0]}-${selected[1]}`
 
-		document.getElementById(selected_id).firstChild.src = "/static/images/light_gray.png";
+		document.getElementById(selected_id).firstChild.src = "static/images/light_gray.png";
 
 		selected_id_next = `jspsych-vsl-grid-scene-table-cell-${row2}-${col2}`
-		// document.getElementById(selected_id_next).firstChild.src = "/static/images/selected.png";
+		// document.getElementById(selected_id_next).firstChild.src = "static/images/selected.png";
 
 
 		const item = image_grid[row1][col1];

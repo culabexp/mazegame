@@ -50,7 +50,7 @@ function recordResponseType(data){
 
 function getWMTrial(display) {
     return {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         trial_duration: 1750,
         response_ends_trial: false,
         data: { display_type: display['type'] },
@@ -62,11 +62,11 @@ function getWMTrial(display) {
 function wmTask(displaySet) {
     console.log('!!!', displaySet[0])
     var trials = {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         response_ends_trial: false,
         timeline: [
             {
-                type: 'html-keyboard-response',
+                type: jsPsychHtmlKeyboardResponse,
                 trial_duration: 2000,
                 response_ends_trial: false,
                 data: { trial_type: displaySet[0]['type'] },
@@ -94,11 +94,11 @@ function wmTask(displaySet) {
 function wmPractice(displaySet) {
     console.log('!!!', displaySet[0])
     var trials = {
-        type: 'html-keyboard-response',
+        type: jsPsychHtmlKeyboardResponse,
         response_ends_trial: false,
         timeline: [
             {
-                type: 'html-keyboard-response',
+                type: jsPsychHtmlKeyboardResponse,
                 trial_duration: 2000,
                 response_ends_trial: false,
                 data: { trial_type: displaySet[0]['type'] },
@@ -125,11 +125,11 @@ function wmPractice(displaySet) {
 // function wmPractice(practice) {
 //     console.log('practice!', practice)
 //     var trials = {
-//         type: 'html-keyboard-response',
+//         type: jsPsychHtmlKeyboardResponse,
 //         response_ends_trial: false,
 //         timeline: [
 //             {
-//                 type: 'html-keyboard-response',
+//                 type: jsPsychHtmlKeyboardResponse,
 //                 trial_duration: 2000,
 //                 response_ends_trial: false,
 //                 data: { trial_type: displaySet[0]['type'] },

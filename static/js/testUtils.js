@@ -96,7 +96,7 @@ function move_image(selected_space, key_pressed, image){
 	} else {
 		selected_space_id = `jspsych-vsl-grid-scene-table-cell-${selected_space[0]}-${selected[1]}`
 
-		document.getElementById(selected_space_id).firstChild.src = "/static/images/light_gray.png";
+		document.getElementById(selected_space_id).firstChild.src = "static/images/light_gray.png";
 
 		selected_id_next = `jspsych-vsl-grid-scene-table-cell-${row2}-${col2}`
 		document.getElementById(selected_id_next).firstChild.src = image;
