@@ -29,7 +29,7 @@ function recordSpatialTestMove(item, location, response, rt){
 function oldNew(img){
   var trial = {
 		prompt: "<h2>Is this image old or new?</h2>",
-    type: 'image-button-response',
+    type: jsPsychImageButtonResponse,
     margin_horizontal:'20px',
     margin_vertical:'0px',
     stimulus: function(){return img},
@@ -54,7 +54,7 @@ function oldNew(img){
 function confidence(img){
   var trial = {
 		 prompt: "<h2>How confident are you?</h2>",
-		type: 'image-button-response',
+		type: jsPsychImageButtonResponse,
     stimulus: function(){return img},
     choices: confidenceChoices,
     on_finish: function(data){
