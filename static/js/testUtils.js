@@ -70,7 +70,7 @@ function confidence(img){
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
-    trial_duration: 2500,
+    // trial_duration: 2500,
     response_ends_trial: true,
     on_load: function(){
       console.log('fuuuuck');
@@ -81,10 +81,11 @@ function showSpatialTestItem() {
       console.log('in stim???', spatialTestList)
       var scene = getOriginalScene();
       console.log('spatialTestList[0', spatialTestList[0])
-      // selected = [_.random(4), _.random(4)];
       x = _.random(4);
       y = _.random(4);
-      scene[y][x] = spatialTestList[0];
+      scene[y][x] = spatialTestList[step];
+    
+
       return sceneToHtml(scene);
     },
   }
@@ -93,9 +94,8 @@ function showSpatialTestItem() {
 function moveSpatialTestItem(){
   return {
     type: jsPsychHtmlKeyboardResponse,
-    trial_duration: 2500,
     response_ends_trial: true,
-    stimulus: function () {
+    choices: function () {
       var prev_data = jsPsych.data.get().last(1).values()[0];
       var move = prev_data['response'];
       if (move == 'arrowup') {
@@ -107,6 +107,28 @@ function moveSpatialTestItem(){
       } else if (move == 'arrowright') {
         x = x + 1;
       }
+      console.log('\ny', y)
+      console.log('x', y)
+      var choices = ['space', 'spacebar', ' '];
+      if (y != 0) { choices.push('arrowup') };
+      if (y != 4) { choices.push('arrowdown') };
+      if (x != 0) { choices.push('arrowleft') };
+      if (x != 4) { choices.push('arrowright') };
+      console.log('choices', choices)
+      return choices;
+    },
+    stimulus: function () {
+      // var prev_data = jsPsych.data.get().last(1).values()[0];
+      // var move = prev_data['response'];
+      // if (move == 'arrowup') {
+      //   y = y - 1;
+      // } else if (move == 'arrowdown') {
+      //   y = y + 1;
+      // } else if (move == 'arrowleft') {
+      //   x = x - 1;
+      // } else if (move == 'arrowright') {
+      //   x = x + 1;
+      // }
       var scene = getOriginalScene();
       // step = step + 1;
       var item = spatialTestList[step];
@@ -120,11 +142,14 @@ function moveSpatialTestItemLoop() {
   var loop_node = {
     timeline: [moveSpatialTestItem()],
     loop_function: function (data) {
-      console.log('in loop data resp', data['response'])
-      if (data['response']!='space') {
-        step+=1;
+      // console.log('in loop data resp', data)
+      console.log('trials 0 response', data['trials'].length, 'wtf is the response', data['trials'][0]['response'], 'ss')
+      const res = data['trials'][0]['response'];
+      if (res !=' ') {
         return true;
       } else {
+        console.log('should be increasing step???')
+        step+=1;
         return false;
       }
     }
@@ -135,14 +160,12 @@ function moveSpatialTestItemLoop() {
 function spatialTestItemLoop() {
   var loop_node = {
     timeline: [showSpatialTestItem(), moveSpatialTestItemLoop()],
-      on_start: function(){
-        console.log('fuckFUCK spatialTestItemLoop')
-      },
       loop_function: function () {
-        console.log('in loop', 'step', step, 'items.length', spatialTestList.length, 'spatialTestList', spatialTestList)
         if (step < spatialTestList.length) {
+          console.log('show another item')
           return true;
         } else {
+          console.log('end o flist dont, show another item')
           return false;
         }
       }
