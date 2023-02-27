@@ -55,7 +55,7 @@ function oldNew(img, index){
 
 function confidence(img){
   var trial = {
-		 prompt: "<h2>How confident are you?</h2>",
+		 prompt: "<h2>How confident are you in your previous answer?</h2>",
 		type: jsPsychImageButtonResponse,
     stimulus: function(){return img},
     choices: confidenceChoices,
@@ -66,7 +66,7 @@ function confidence(img){
   };
   return trial;
 }
-const spatialTestPrompt = '<h4>Using the arrow keys, move the item to where you remember seeing it in the maze game.<br> Press the <b>spacebar</b> to finalize your answer</h4>'
+const spatialTestPrompt = '<h4>Using the arrow keys, move the item to where you remember seeing it in the Maze Game.<br> Press the <b>spacebar</b> to finalize your answer</h4>'
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,

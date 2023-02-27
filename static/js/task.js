@@ -126,6 +126,8 @@ var breakTrial = {
 // timeline.push(breakTrial);
 
 var testInstruct = continueInstructions('<h2>Now you will do a memory test</h2>');
+var testInstruct = continueInstructions("<h2>We will show you an item. <br><br> If you remember seeing the item during the Maze Game, answer 'Old'.<br><br> If you don't remember seeing the item, press 'New'<br></h2>");
+
 timeline.push(testInstruct);
 
 // randomize item order again before old/new test
