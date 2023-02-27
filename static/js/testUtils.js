@@ -67,11 +67,11 @@ function confidence(img){
   return trial;
 }
 
-function spatialTestItem() {
+function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
     trial_duration: 2500,
-    response_ends_trial: false,
+    response_ends_trial: true,
     on_load: function(){
       console.log('fuuuuck');
     },
@@ -82,15 +82,59 @@ function spatialTestItem() {
       var scene = getOriginalScene();
       console.log('spatialTestList[0', spatialTestList[0])
       // selected = [_.random(4), _.random(4)];
-      scene[_.random(4)][_.random(4)] = spatialTestList[0];
+      x = _.random(4);
+      y = _.random(4);
+      scene[y][x] = spatialTestList[0];
       return sceneToHtml(scene);
     },
   }
 }
 
+function moveSpatialTestItem(){
+  return {
+    type: jsPsychHtmlKeyboardResponse,
+    trial_duration: 2500,
+    response_ends_trial: true,
+    stimulus: function () {
+      var prev_data = jsPsych.data.get().last(1).values()[0];
+      var move = prev_data['response'];
+      if (move == 'arrowup') {
+        y = y - 1;
+      } else if (move == 'arrowdown') {
+        y = y + 1;
+      } else if (move == 'arrowleft') {
+        x = x - 1;
+      } else if (move == 'arrowright') {
+        x = x + 1;
+      }
+      var scene = getOriginalScene();
+      // step = step + 1;
+      var item = spatialTestList[step];
+      scene[y][x] = item;
+      return sceneToHtml(scene);
+    },
+  }
+}
+
+function moveSpatialTestItemLoop() {
+  var loop_node = {
+    timeline: [moveSpatialTestItem()],
+    loop_function: function (data) {
+      console.log('in loop data resp', data['response'])
+      if (data['response']!='space') {
+        step+=1;
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  return loop_node;
+}
+
 function spatialTestItemLoop() {
   var loop_node = {
-      timeline: [spatialTestItem()],
+    timeline: [showSpatialTestItem(), moveSpatialTestItemLoop()],
       on_start: function(){
         console.log('fuckFUCK spatialTestItemLoop')
       },
