@@ -19,13 +19,7 @@ function kickOffSpatialTest() {
     misses = _.shuffle(misses);
     hits = _.shuffle(hits);
 
-    console.log('misses', misses.length)
-    console.log('hits', hits.length)
-
-
     spatialTestList = hits.slice(0, 90);
-    console.log('kickOffSpatialTest   spatialTestList', spatialTestList)
-    console.log('kickOffSpatialTest   spatialTestList', spatialTestList.length)
 
     if (spatialTestList.length < 90) {
         const itemsNeeded = 90 - spatialTestList.length;
@@ -84,40 +78,37 @@ var preload = {
     images: practiceItems1.concat(mazeItems).concat(mazeEndItems).concat(practiceItems2).concat(colors),
 }
 
-//  PRELOAD
-timeline.push(preload)
+// //  PRELOAD
+// timeline.push(preload)
 
-// randomize maze lengths
-mazeLengths = _.shuffle(mazeLengths);
+// // randomize maze lengths
+// mazeLengths = _.shuffle(mazeLengths);
 
-// randomize item order
-mazeItems = _.shuffle(mazeItems);
-encodeItems = mazeItems.slice(0, 192);
+// // randomize item order
+// mazeItems = _.shuffle(mazeItems);
+// encodeItems = mazeItems.slice(0, 192);
 
+// // randomize which mazes are rewarded
+// mazeRewarded = _.shuffle(mazeRewarded);
 
-// randomize which mazes are rewarded
-mazeRewarded = _.shuffle(mazeRewarded);
+// // consent
+// timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
 
-// consent
-timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+// // demographics
+// timeline.push(demographicsQuestions());
 
-// demographics
-timeline.push(demographicsQuestions());
-
-// // ENCODING
-var scene = getOriginalScene();
+// // // ENCODING
+// var scene = getOriginalScene();
 
 // // practice!!!!
-timeline.push(mazeInstructions());
-timeline.push(continueInstructions(`<br><br><br><h1>Click continue to begin!</h1><br>`, resetMazeVars));
-timeline.push(practiceMaze(practiceItems1, rewarded=true));
-timeline.push(continueInstructions(`<br><br><br><h1>Nice, you found a gold coin, and won a dollar bonus!</h1><br>`));
-timeline.push(wmInstructions())
-timeline.push(wmPractice(wmPracticeSet))
-timeline.push(continueInstructions(`<br><br><br><h1>Now let's do a second practice maze!</h1><br>`, resetMazeVars));
-timeline.push(practiceMaze(practiceItems2, rewarded=false));
-// timeline.push(continueInstructions(`<br><br><br><h1> In between each task, you will play a memory game <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
-
+// timeline.push(mazeInstructions());
+// timeline.push(continueInstructions(`<br><br><br><h1>Click continue to begin!</h1><br>`, resetMazeVars));
+// timeline.push(practiceMaze(practiceItems1, rewarded=true));
+// timeline.push(continueInstructions(`<br><br><br><h1>Nice, you found a gold coin, and won a dollar bonus!</h1><br>`));
+// timeline.push(wmInstructions())
+// timeline.push(wmPractice(wmPracticeSet))
+// timeline.push(continueInstructions(`<br><br><br><h1>Now let's do a second practice maze!</h1><br>`, resetMazeVars));
+// timeline.push(practiceMaze(practiceItems2, rewarded=false));
 timeline.push(continueInstructions(`<br><br><br><h1> That's it for practice, now you will start the first maze! <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
 
 breakLength = _.shuffle(breakLength);
@@ -126,12 +117,12 @@ var itemsIndex = 0;
 _.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], function (i) {
     var mazeLength = mazeLengths[i];
     var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
-    console.log(items)
     itemsIndex += mazeLength;
     timeline.push(practiceMaze(items, rewarded = mazeRewarded[i]));
     itemsIndex += mazeLengths[i];
+    timeline.push(blankScreen());
     timeline.push(wmTask(wmDisplaySets[i]))
-    timeline.push(continueInstructions(`<br><br><br><h1> Now you will start the next maze! <br><br> Maze ${i + 2} / 22 <br><br> </h1>`, resetMazeVars));
+    timeline.push(startMaze(`<br><br><br><h1> Now you will start the next maze! <br><br> Maze ${i + 2} / 22 <br><br> </h1>`, resetMazeVars));
 });
 
 //  BREAK
@@ -190,5 +181,4 @@ const save_data = {
 
 timeline.push(save_data)
 
-console.log('timeline', timeline)
 jsPsych.run(timeline);

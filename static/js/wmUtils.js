@@ -60,7 +60,6 @@ function getWMTrial(display) {
 }
 
 function wmTask(displaySet) {
-    console.log('!!!', displaySet[0])
     var trials = {
         type: jsPsychHtmlKeyboardResponse,
         response_ends_trial: false,
@@ -92,7 +91,6 @@ function wmTask(displaySet) {
 
 
 function wmPractice(displaySet) {
-    console.log('!!!', displaySet[0])
     var trials = {
         type: jsPsychHtmlKeyboardResponse,
         response_ends_trial: false,

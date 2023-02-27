@@ -6,6 +6,15 @@ var remaining_time  = 0;
 var started=false;
 var sceneSpaces = {};
 
+function isRewarded(items){
+    if (_.last(items) == "static/images/23.jpg"){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// function late_trial
 var late_trial = {
     type: jsPsychHtmlKeyboardResponse,
     data: { scene: scene, x: x, y: y, step: step },
@@ -37,8 +46,14 @@ function showMazeItem(items){
         type: jsPsychHtmlKeyboardResponse,
         trial_duration: 2500,
         response_ends_trial: false,
-        data: { scene: scene, x:x, y:y, step:step },
         save_trial_parameters: {trial_duration: true},
+        on_finish: function(data){
+            data['scene'] = scene;
+            data['x'] = x;
+            data['y'] = y;
+            data['step'] = step;
+            data['item'] = scene[y][x];
+        },
         stimulus: function(){
             var prev_data = jsPsych.data.get().last(1).values()[0];            
             var move = prev_data['response'];
@@ -149,11 +164,13 @@ function showItemLoop(items){
     var loop_node = {
         timeline: [
             selectMoveLoop(),
-            showMazeItem(items),
+            showMazeItem(items, ),
             showBlankSquareConditional(items),
             // showBlankSquare(),
         ],
         loop_function: function (data) {
+            console.log('items.length, ', items.length, items)
+
             if (step < items.length){
                 return true;
             } else {
@@ -179,7 +196,7 @@ var end_maze_loop = {
     }
 }
 
-function practiceMaze(items, rewarded){
+function practiceMaze(items, rewarded, index){
     mazeNumber = 0;
     if (rewarded) {
         items.push("static/images/23.jpg");
@@ -188,9 +205,10 @@ function practiceMaze(items, rewarded){
     }
 
     var trials = {
+        data: { index: index, rewarded: rewarded },
         type: jsPsychHtmlKeyboardResponse,
         timeline: [
-            showItemLoop(items),
+            showItemLoop(items, index),
         ]
     }
     return trials;

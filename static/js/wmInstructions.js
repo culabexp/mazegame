@@ -57,7 +57,7 @@ function wmInstructions() {
             continueInstructionsWithWM('<h1> In the <b>Match Game</b>, you will see a pattern on the screen like this<br><br>', dist1),
             continueInstructionsWithWM('<h1> After, you will see several other patterns.<br><br> When the pattern is <i>exactly</i> the same as the first pattern <br>—same color squares, same locations—</i> <br>click "up" !<br><br><img src="static/images/keys_up_circle.png" width="135" height="100"><br>', dist1),
             continueInstructionsWithWM('<h1> So if the next pattern looks like this — do not click up! <br><br><br>', dist2),
-            continueInstructionsWithWM("<h1> But if the third pattern looks like this, it's a match, <brwhich means you should click up! <br><br><br>", dist1),
+            continueInstructionsWithWM("<h1> But if the third pattern looks like this, it's a match, <br>which means you should click up! <br><br><br>", dist1),
             continueInstructions("<h1> <br><br><br> Now we we'll do a practice version of the <b>Match Game</b>. <br><br> Get ready! <br><br><br></h1>"),
         ],
     }

@@ -1,5 +1,24 @@
 const VERSION = 0.0
 
+function startMaze(instructionsHTML, on_start) {
+      return {
+         type: jsPsychHtmlKeyboardResponse,
+         trial_duration: 500,
+         response_ends_trial: false,
+         stimulus: instructionsHTML,
+         on_start: on_start,
+      }
+}
+
+function blankScreen() {
+   return {
+      type: jsPsychHtmlKeyboardResponse,
+      trial_duration: 20,
+      response_ends_trial: false,
+      stimulus: '',
+   }
+}
+
 function getFeedback() {
    var trial = {
       type: jsPsychSurveyText,
