@@ -1,23 +1,23 @@
 // items we need
-const mazeEndItems = ["/static/images/23.jpg", "/static/images/mazeover.jpg"];
+const mazeEndItems = ["static/images/23.jpg", "static/images/mazeover.jpg"];
 
-practiceItems1 = ['/static/images/40.jpg',
-                  '/static/images/41.jpg',
-                  '/static/images/42.jpg',
-                 '/static/images/43.jpg',
-                 '/static/images/44.jpg',]
-practiceItems2 = ['/static/images/45.jpg',
-                  '/static/images/46.jpg',
-                  '/static/images/47.jpg',]
+practiceItems1 = ['static/images/40.jpg',
+                  'static/images/41.jpg',
+                  'static/images/42.jpg',
+                 'static/images/43.jpg',
+                 'static/images/44.jpg',]
+practiceItems2 = ['static/images/45.jpg',
+                  'static/images/46.jpg',
+                  'static/images/47.jpg',]
 
-var colors = ['/static/images/light_gray.png',
-              '/static/images/selected.png',
-              '/static/images/red.jpg',
-              '/static/images/blue.jpg',
-              '/static/images/green.jpg',
-              '/static/images/purple.jpg',
-              '/static/images/orange.jpg',
-              '/static/images/yellow.jpg',];
+var colors = ['static/images/light_gray.png',
+              'static/images/selected.png',
+              'static/images/red.jpg',
+              'static/images/blue.jpg',
+              'static/images/green.jpg',
+              'static/images/purple.jpg',
+              'static/images/orange.jpg',
+              'static/images/yellow.jpg',];
 
 const jsPsych = initJsPsych();
 const timeline = [];
@@ -57,4 +57,5 @@ const save_data = {
 
 timeline.push(save_data)
 
+console.log('timeline', timeline)
 jsPsych.run(timeline);
