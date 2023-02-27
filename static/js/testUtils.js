@@ -81,7 +81,8 @@ function spatialTestItem() {
       console.log('in stim???', spatialTestList)
       var scene = getOriginalScene();
       console.log('spatialTestList[0', spatialTestList[0])
-      scene[0][0] = spatialTestList[0];
+      // selected = [_.random(4), _.random(4)];
+      scene[_.random(4)][_.random(4)] = spatialTestList[0];
       return sceneToHtml(scene);
     },
   }
