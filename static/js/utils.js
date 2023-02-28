@@ -1,5 +1,24 @@
 const VERSION = 0.0
 
+function getWorkerInfo() {
+   const url = window.location.href;
+   var queryString = url.split('?')[1]
+   const queryStringDict = parseQuery(queryString);
+
+   jsPsych.data.addProperties({
+      // record the condition assignment in the jsPsych data
+      condition: 0,
+      // this adds a property called 'subject' to every trial
+      subject: queryStringDict['workerId'],
+      hit: queryStringDict['hitId'],
+      assignment: queryStringDict['assignmentId'],
+      session: 0,
+      version: 0,
+      expStartTime: jsPsych.getStartTime(),
+   });
+};
+
+
 function runPractice(timeline) {
    timeline.push(mazeInstructions());
    timeline.push(continueInstructions(`<br><br><br><h1>Click continue to begin!</h1><br>`, resetMazeVars));
