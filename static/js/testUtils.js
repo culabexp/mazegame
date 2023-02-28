@@ -36,10 +36,8 @@ function oldNew(img, index){
     choices: ['old', 'new'],
     on_finish: function(data){
       const respIndex = data['response'];
-      // console.log("data['response']", data['response']);
       data['response'] = oldNew_choices[data['response']];
       var itemIsOld = _.include(encodeItems, img)
-      console.log('itemIsOld', itemIsOld)
       if ((data['response'] == 'old')&(itemIsOld)){
         data['grade'] = 'hit';
         hits.push(img);
@@ -72,20 +70,13 @@ function showSpatialTestItem() {
     type: jsPsychHtmlKeyboardResponse,
     // trial_duration: 2500,
     response_ends_trial: true,
-    on_load: function(){
-      console.log('fuuuuck');
-    },
     // data: { scene: scene, x: x, y: y, step: step },
     // save_trial_parameters: { trial_duration: true },
     stimulus: function () {
-      console.log('in stim???', spatialTestList)
       var scene = getOriginalScene();
-      console.log('spatialTestList[0', spatialTestList[0])
       x = _.random(4);
       y = _.random(4);
       scene[y][x] = spatialTestList[step];
-    
-
       return spatialTestPrompt + sceneToHtml(scene);
     },
   }
@@ -107,8 +98,7 @@ function moveSpatialTestItem(){
       } else if (move == 'arrowright') {
         x = x + 1;
       }
-      console.log('\ny', y)
-      console.log('x', y)
+
       var choices = [ ' '];
       if (y != 0) { choices.push('arrowup') };
       if (y != 4) { choices.push('arrowdown') };
@@ -117,17 +107,6 @@ function moveSpatialTestItem(){
       return choices;
     },
     stimulus: function () {
-      // var prev_data = jsPsych.data.get().last(1).values()[0];
-      // var move = prev_data['response'];
-      // if (move == 'arrowup') {
-      //   y = y - 1;
-      // } else if (move == 'arrowdown') {
-      //   y = y + 1;
-      // } else if (move == 'arrowleft') {
-      //   x = x - 1;
-      // } else if (move == 'arrowright') {
-      //   x = x + 1;
-      // }
       var scene = getOriginalScene();
       // step = step + 1;
       var item = spatialTestList[step];
@@ -141,13 +120,10 @@ function moveSpatialTestItemLoop() {
   var loop_node = {
     timeline: [moveSpatialTestItem()],
     loop_function: function (data) {
-      // console.log('in loop data resp', data)
-      console.log('trials 0 response', data['trials'].length, 'wtf is the response', data['trials'][0]['response'], 'ss')
       const res = data['trials'][0]['response'];
       if (res !=' ') {
         return true;
       } else {
-        console.log('should be increasing step???')
         step+=1;
         return false;
       }
@@ -161,10 +137,8 @@ function spatialTestItemLoop() {
     timeline: [showSpatialTestItem(), moveSpatialTestItemLoop()],
       loop_function: function () {
         if (step < spatialTestList.length) {
-          console.log('show another item')
           return true;
         } else {
-          console.log('end o flist dont, show another item')
           return false;
         }
       }

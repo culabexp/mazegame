@@ -13,30 +13,8 @@ function getScene(display){
     });
     return display_grid;
 }
-function recordKeyPress(displaySet, trial_index){
-    $(document).keydown(function (e) {
-
-        if (e.which == 38) { // up
-            e.preventDefault();
-            console.log('fuck')
-            const last_trial = jsPsych.data.getLastTrialData().values()[0];
-
-            onFinish({
-                phase: 'wm',
-                trial_type: 'react',
-                subject: last_trial['subject'],
-                condition: last_trial['condition'],
-                stimulus: displaySet[trial_index]['type'],
-                time_elapsed: jsPsych.totalTime(),
-                expStartTime: jsPsych.startTime(),
-                trial_index: trial_index,
-            });
-        }
-    });
-}
 
 function recordResponseType(data){
-    console.log('in record!')
     if (data.response == 'arrowup' && data.display_type == 'target') {
         data.correct = 'hit';
     } else if (data.response == 'arrowup' && data.display_type != 'target') {
@@ -51,6 +29,7 @@ function recordResponseType(data){
 function getWMTrial(display) {
     return {
         type: jsPsychHtmlKeyboardResponse,
+        choices: ['arrowup'],
         trial_duration: 1750,
         response_ends_trial: false,
         data: { display_type: display['type'] },

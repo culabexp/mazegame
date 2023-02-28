@@ -37,11 +37,7 @@ function continueInstructionsWithWM(words, display) {
         response_ends_trial: true,
         // stimulus: html,
         stimulus: function() {
-            console.log('what the fuck')
-            // console.log('display', display)
-            // scene = getOriginalScene()
             var scene = getScene(display)
-            // console.log('HERE sceneToHtml(display)', sceneToHtml(scene))
             return words + sceneToHtml(scene);
         },
         choices: ['Continue']

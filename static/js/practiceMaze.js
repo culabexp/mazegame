@@ -170,8 +170,6 @@ function showItemLoop(items){
             showBlankSquareConditional(items),
         ],
         loop_function: function (data) {
-            console.log('items.length, ', items.length, items)
-
             if (step < items.length){
                 return true;
             } else {

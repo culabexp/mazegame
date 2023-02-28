@@ -316,43 +316,6 @@ function onFinish(data){
   dm.recordData(data);
 }
 
-
-function getProlificId(conditon){
-  console.log('in prol id', conditon)
-  var trial = {
-   type: jsPsychSurveyText,
-    on_finish: function(data) {
-      const subjectId = data['response']['prolific_id'];
-      const session = data['response']['session_number'];
-      console.log('subjectId', subjectId)
-
-      jsPsych.data.addProperties({
-        // record the condition assignment in the jsPsych data
-        condition: conditon,
-        // this adds a property called 'subject' to every trial
-        subject: subjectId,
-        session: 0,
-
-        version: VERSION,
-         expStartTime: jsPsych.getStartTime(),
-      });
-    },
-    questions: [
-      {prompt: "<h2>What is your Prolific ID?</h2><br><br>",
-       placeholder: "111111111111", required: true,
-       name: 'prolific_id',
-     },
-    //  {prompt: "<h2>What the session number (1 or 2)?</h2><br><br>",
-    //   placeholder: "1", required: true,
-    //   name: 'session_number',
-    // }
-
-    ],
-  };
-  return trial;
-}
-
-
 var image_grid = [
   ["static/images/4063.jpg", "static/images/4067.jpg","static/images/4072.jpg",  "static/images/4077.jpg","static/images/4082.jpg"],
   ["static/images/4062.jpg", "static/images/4068.jpg","static/images/4073.jpg",  "static/images/4078.jpg","static/images/4083.jpg"],
