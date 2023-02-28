@@ -20,6 +20,8 @@ function getWorkerInfo() {
       // record the condition assignment in the jsPsych data
       condition: 0,
       // this adds a property called 'subject' to every trial
+      jspsychsubject: jspsychID,
+      completioncode: completionCode,
       subject: queryStringDict['workerId'],
       hit: queryStringDict['hitId'],
       assignment: queryStringDict['assignmentId'],
