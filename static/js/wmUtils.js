@@ -36,7 +36,7 @@ function getWMTrial(display) {
         choices: ['arrowup'],
         trial_duration: 1750,
         response_ends_trial: false,
-        data: { display_type: display['type'], phase: 'enocde', trial_subtype: 'wm' },
+        data: { display_type: display['type'], phase: 'encode', trial_subtype: 'wm' },
         on_finish: recordResponseType,
         stimulus: sceneToHtml(getScene(display))
     }

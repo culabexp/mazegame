@@ -207,7 +207,7 @@ function practiceMaze(items, rewarded, index){
                 rewarded: rewarded, 
                 items: items, 
                 mazeLength: items.length-1 ,
-                phase: 'enocde',
+                phase: 'encode',
                 trial_subtype: 'maze',
             },
         type: jsPsychHtmlKeyboardResponse,
