@@ -29,6 +29,35 @@ function runEncoding(timeline) {
    });
 }
 
+
+function runTest(timeline){
+   var testInstruct = continueInstructions('<h2>Now you will do a memory test</h2>');
+   var testInstruct = continueInstructions("<h2>We will show you an item. <br><br> If you remember seeing the item during the Maze Game, answer 'Old'.<br><br> If you don't remember seeing the item, press 'New'<br></h2>");
+
+   timeline.push(testInstruct);
+
+   // randomize item order again before old/new test
+   mazeItems = _.shuffle(mazeItems);
+
+   // PHASE 2 old/new test
+   _.each(mazeItems.slice(0, 6), function (x, index) {
+      timeline.push(oldNew(x, index))
+      timeline.push(confidence(x))
+   });
+
+   // // randomize item order again before spatial test
+   mazeItems = _.shuffle(mazeItems);
+
+   // Phase 3—Surprise spatial location memory test:
+   // We randomly selected 60 objects that were correctly identified as old objects during the Phase 2: recognition memory test.
+   // If a participant did not have enough hit trials(in Experiment 1, this applied to two participants in the 24 - hour condition),
+   //  the balance of trials was filled with miss trials, and these trials were removed from subsequent analyses.
+
+   var spatialTestList = null;
+   timeline.push(continueInstructions('<h2>Now you will do another type of memory test</h2>', kickOffSpatialTest))
+   timeline.push(spatialTestItemLoop())
+}
+
 var breakTrial = {
    type: jsPsychVideoKeyboardResponse,
    stimulus: ['https://d3uxkvynwb06gu.cloudfront.net/movieIS_5min.mp4'],
