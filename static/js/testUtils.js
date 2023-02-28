@@ -43,17 +43,21 @@ function oldNew(img, index){
       if ((data['response'] == 'old')&(itemIsOld)){
         data['grade'] = 'hit';
         data['correct'] = 1;
+        data['display_type'] = 'old';
         hits.push(img);
       } else if ((data['response'] == 'new')&(itemIsOld)){
         data['grade'] = 'miss';
         data['correct'] = 0;
+        data['display_type'] = 'old';
         misses.push(img);
       } else if ((data['response'] == 'new') & (itemIsNew)) {
         data['grade'] = 'correct_reject';
         data['correct'] = 1;
+        data['display_type'] = 'new';
       } else if ((data['response'] == 'old') & (itemIsNew)) {
         data['grade'] = 'false_alarm';
         data['correct'] = 0;
+        data['display_type'] = 'new';
       }
 
     }
@@ -140,7 +144,6 @@ function moveSpatialTestItem(){
     stimulus: function () {
       var scene = getOriginalScene();
       var item = spatialTestList[step];
-      console.log('x', x, 'y', y);
       scene[y][x] = item;
       return spatialTestPrompt + sceneToHtml(scene);
     },

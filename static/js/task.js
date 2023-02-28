@@ -1,3 +1,4 @@
+const debug = true;
 const jsPsych = initJsPsych();
 const timeline = [];
 
@@ -6,9 +7,13 @@ mazeLengths = _.shuffle(mazeLengths);
 mazeItems = _.shuffle(mazeItems);
 encodeItems = mazeItems.slice(0, 192);
 mazeRewarded = _.shuffle(mazeRewarded);
-breakLength = _.shuffle(breakLength);
 wmDisplaySets = _.shuffle(wmDisplaySets);
 var scene = getOriginalScene();
+
+if (debug){
+    mazeIndices = mazeIndices.slice(0, 1)
+    mazeItems = mazeItems.slice(0, 12)
+}
 
 const jspsychID = jsPsych.randomization.randomID(10);
 const completionCode = jsPsych.randomization.randomID(10);
@@ -20,11 +25,11 @@ getWorkerInfo()
 
 // // PRELOAD, consent, demographics
 timeline.push(preload)
-timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
-timeline.push(demographicsQuestions());
+// timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+// timeline.push(demographicsQuestions());
 
 // // // PRACTICE
-runPractice(timeline)
+// runPractice(timeline)
 
 // // // ENCODING
 runEncoding(timeline)
@@ -33,7 +38,7 @@ runEncoding(timeline)
 timeline.push(saveData(filename))
 
 // // //  BREAK
-timeline.push(breakTrial);
+// timeline.push(breakTrial);
 
 // //  TEST
 runTest(timeline)
