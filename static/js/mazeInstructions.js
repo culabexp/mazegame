@@ -16,7 +16,7 @@ function mazeInstructions() {
     var trials = {
         type: jsPsychHtmlKeyboardResponse,
         timeline: [
-            continueInstructions('<h1> <br><br><br> Welcome to the Matrix Game! <br><br><br></h1>'),
+            continueInstructions('<h1> <br><br><br> Welcome to the Maze Game! <br><br><br></h1>'),
             continueInstructions('<h1> In this game, you will explore a series of mazes.<br><br> Your goal is to find the <u>gold coin</u> hidden within each maze. <br> <br><img src="static/images/23.jpg" width="100" height="100"> <br><br>You will be <u>paid $1 bonus</u> for every gold coin you find.<br><br></h1><br><br>'),
             continueInstructionsWithMaze('<h1> Mazes look like this. A black frame will indicate where you are in the maze. </h1>'),
             continueInstructions('<h1> You navigate by moving the <u>arrow keys</u>.<br><img src="static/images/keys.png" width="130" height="100"><br> You will have <u>two seconds</u> to make a choice. </h1><br>'),
