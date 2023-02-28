@@ -3,7 +3,7 @@ OSF_PROJECT_ID = "CF9IOlD9MkXj";
 const jsPsych = initJsPsych();
 const timeline = [];
 
-//  --- intialize items, randomizing them---
+//  INIT MAZE VARS
 mazeLengths = _.shuffle(mazeLengths);
 mazeItems = _.shuffle(mazeItems);
 encodeItems = mazeItems.slice(0, 192);
@@ -16,13 +16,6 @@ var scene = getOriginalScene();
 const jspsychID = jsPsych.randomization.randomID(10);
 const date = new Date().toISOString()
 const filename = `${jspsychID}_${date}.csv`;
-const save_data = {
-    type: jsPsychPipe,
-    action: "save",
-    experiment_id: OSF_PROJECT_ID,
-    filename: filename,
-    data_string: () => jsPsych.data.get().csv()
-};
 
 // grab worker info
 

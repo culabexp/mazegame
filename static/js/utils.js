@@ -1,5 +1,13 @@
 const VERSION = 0.0
 
+const save_data = {
+   type: jsPsychPipe,
+   action: "save",
+   experiment_id: OSF_PROJECT_ID,
+   filename: filename,
+   data_string: () => jsPsych.data.get().csv()
+};
+
 function getWorkerInfo() {
    const url = window.location.href;
    var queryString = url.split('?')[1]
@@ -13,7 +21,7 @@ function getWorkerInfo() {
       hit: queryStringDict['hitId'],
       assignment: queryStringDict['assignmentId'],
       session: 0,
-      version: 0,
+      version: VERSION,
       expStartTime: jsPsych.getStartTime(),
    });
 };
