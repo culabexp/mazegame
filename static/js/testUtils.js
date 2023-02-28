@@ -68,14 +68,19 @@ const spatialTestPrompt = '<h4>Using the arrow keys, move the item to where you 
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
-    // trial_duration: 2500,
     response_ends_trial: true,
-    // data: { scene: scene, x: x, y: y, step: step },
-    // save_trial_parameters: { trial_duration: true },
-    stimulus: function () {
-      var scene = getOriginalScene();
+    choices: function () {
       x = _.random(4);
       y = _.random(4);
+      var choices = [' '];
+      if (y != 0) { choices.push('arrowup') };
+      if (y != 4) { choices.push('arrowdown') };
+      if (x != 0) { choices.push('arrowleft') };
+      if (x != 4) { choices.push('arrowright') };
+      return choices;
+    },
+    stimulus: function () {
+      var scene = getOriginalScene();
       scene[y][x] = spatialTestList[step];
       return spatialTestPrompt + sceneToHtml(scene);
     },
@@ -88,6 +93,7 @@ function moveSpatialTestItem(){
     response_ends_trial: true,
     choices: function () {
       var prev_data = jsPsych.data.get().last(1).values()[0];
+      console.log('step', prev_data)
       var move = prev_data['response'];
       if (move == 'arrowup') {
         y = y - 1;
@@ -108,8 +114,8 @@ function moveSpatialTestItem(){
     },
     stimulus: function () {
       var scene = getOriginalScene();
-      // step = step + 1;
       var item = spatialTestList[step];
+      console.log('x', x, 'y', y);
       scene[y][x] = item;
       return spatialTestPrompt + sceneToHtml(scene);
     },
@@ -124,7 +130,7 @@ function moveSpatialTestItemLoop() {
       if (res !=' ') {
         return true;
       } else {
-        step+=1;
+        step += 1;
         return false;
       }
     }
@@ -159,7 +165,7 @@ function getFeedback(){
   var trial = {
     type: jsPsychSurveyText,
       questions: [
-      {prompt: "<h2>Do you have any feedback for us? Encounter any technical errors?</h2><br><br>",
+      {prompt: "<h2>Do you have any feedback for us?<br>Encounter any technical errors?</h2><br><br>",
        placeholder: "                        ", required: true, rows: 5,
        name: 'feedback',
      },
