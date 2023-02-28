@@ -29,6 +29,7 @@ function recordSpatialTestMove(item, location, response, rt){
 function oldNew(img, index){
   var trial = {
     prompt: `<h2>${index+1}. Is this image old or new?</h2>`,
+    data: { 'phase': 'test', 'trial_subtype': 'old_new' }, 
     type: jsPsychImageButtonResponse,
     margin_horizontal:'20px',
     margin_vertical:'0px',
@@ -38,14 +39,23 @@ function oldNew(img, index){
       const respIndex = data['response'];
       data['response'] = oldNew_choices[data['response']];
       var itemIsOld = _.include(encodeItems, img)
+      var itemIsNew = !itemIsOld;
       if ((data['response'] == 'old')&(itemIsOld)){
         data['grade'] = 'hit';
+        data['correct'] = 1;
         hits.push(img);
-      }
-      else if ((data['response'] == 'new')&(itemIsOld)){
+      } else if ((data['response'] == 'new')&(itemIsOld)){
         data['grade'] = 'miss';
+        data['correct'] = 0;
         misses.push(img);
+      } else if ((data['response'] == 'new') & (itemIsNew)) {
+        data['grade'] = 'correct_reject';
+        data['correct'] = 1;
+      } else if ((data['response'] == 'old') & (itemIsNew)) {
+        data['grade'] = 'false_alarm';
+        data['correct'] = 0;
       }
+
     }
   };
   return trial;
@@ -57,6 +67,7 @@ function testItemNoChoices(img) {
     margin_horizontal: '20px',
     margin_vertical: '0px',
     trial_duration: 1500, 
+    data: { 'phase': 'test', 'trial_subtype': 'testItemNoChoices'}, 
     stimulus: function () { return img },
     choices: [],
   };
@@ -67,6 +78,7 @@ function confidence(img){
   var trial = {
 		 prompt: "<h2>How confident are you in your previous answer?</h2>",
 		type: jsPsychImageButtonResponse,
+    data: { 'phase': 'test', 'trial_subtype': 'confidence' }, 
     stimulus: function(){return img},
     choices: confidenceChoices,
     on_finish: function(data){
@@ -80,6 +92,7 @@ const spatialTestPrompt = "<h4>Using the arrow keys, move the item to where you 
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
+    data: { 'phase': 'test', 'trial_subtype': 'spatial_test' }, 
     response_ends_trial: true,
     choices: function () {
       x = _.random(4);
@@ -103,6 +116,7 @@ function moveSpatialTestItem(){
   return {
     type: jsPsychHtmlKeyboardResponse,
     response_ends_trial: true,
+    data: { 'phase': 'test', 'trial_subtype': 'spatial_test' }, 
     choices: function () {
       var prev_data = jsPsych.data.get().last(1).values()[0];
       var move = prev_data['response'];

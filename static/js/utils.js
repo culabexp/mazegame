@@ -96,6 +96,7 @@ var breakTrial = {
    stimulus: ['https://d3uxkvynwb06gu.cloudfront.net/movieIS_5min.mp4'],
    autoplay: true,
    choices: [' '],
+   data: {'phase': 'break'},
    on_load: function () {
       var video = $('#jspsych-video-keyboard-response-stimulus');
       video.muted = true;

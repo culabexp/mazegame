@@ -196,7 +196,6 @@ var end_maze_loop = {
 }
 
 function practiceMaze(items, rewarded, index){
-    mazeNumber = 0;
     if (rewarded) {
         items.push("static/images/23.jpg");
     } else {
@@ -207,7 +206,9 @@ function practiceMaze(items, rewarded, index){
         data: { mazeIndex: index, 
                 rewarded: rewarded, 
                 items: items, 
-                mazeLength: items.length-1 
+                mazeLength: items.length-1 ,
+                phase: 'enocde',
+                trial_subtype: 'maze',
             },
         type: jsPsychHtmlKeyboardResponse,
         timeline: [

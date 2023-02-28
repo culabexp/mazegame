@@ -16,13 +16,17 @@ function getScene(display){
 
 function recordResponseType(data){
     if (data.response == 'arrowup' && data.display_type == 'target') {
-        data.correct = 'hit';
+        data.grade = 'hit';
+        data.correct = 1;
     } else if (data.response == 'arrowup' && data.display_type != 'target') {
-        data.correct = 'false_alarm';
+        data.grade = 'false_alarm';
+        data.correct = 0;
     } else if (data.response == null && data.display_type != 'target') {
-        data.correct = 'correct_reject';
+        data.grade = 'correct_reject';
+        data.correct = 1;
     } else if (data.response == null && data.display_type == 'target') {
-        data.correct = 'miss';
+        data.grade = 'miss';
+        data.correct = 0;
     }
 }
 
@@ -32,7 +36,7 @@ function getWMTrial(display) {
         choices: ['arrowup'],
         trial_duration: 1750,
         response_ends_trial: false,
-        data: { display_type: display['type'] },
+        data: { display_type: display['type'], phase: 'enocde', trial_subtype: 'wm' },
         on_finish: recordResponseType,
         stimulus: sceneToHtml(getScene(display))
     }
