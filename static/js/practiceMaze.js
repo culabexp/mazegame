@@ -3,8 +3,9 @@ var y =  null;
 var scene = getOriginalScene();
 var step = 0;
 var remaining_time  = 0;
-var started=false;
+var started= false;
 var sceneSpaces = {};
+var repeat = false;
 
 function isRewarded(items){
     if (_.last(items) == "static/images/23.jpg"){
@@ -14,7 +15,6 @@ function isRewarded(items){
     }
 }
 
-// function late_trial
 var late_trial = {
     type: jsPsychHtmlKeyboardResponse,
     data: { scene: scene, x: x, y: y, step: step },
@@ -53,6 +53,7 @@ function showMazeItem(items){
             data['y'] = y;
             data['step'] = step;
             data['item'] = scene[y][x];
+            data['repeat'] = repeat;
         },
         stimulus: function(){
             var prev_data = jsPsych.data.get().last(1).values()[0];            
@@ -69,9 +70,11 @@ function showMazeItem(items){
             var scene = getOriginalScene();
             if (_.contains(Object.keys(seenSpaces), `${x}${y}`)){
                 var nextItem = seenSpaces[`${x}${y}`];
+                repeat = true;
             } else {
                 var nextItem = items[step];
                 seenSpaces[`${x}${y}`] = nextItem;
+                repeat = false;
             }
             step = step + 1;
             scene[y][x] = nextItem;
@@ -166,7 +169,6 @@ function showItemLoop(items){
             selectMoveLoop(),
             showMazeItem(items, ),
             showBlankSquareConditional(items),
-            // showBlankSquare(),
         ],
         loop_function: function (data) {
             console.log('items.length, ', items.length, items)

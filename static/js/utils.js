@@ -1,5 +1,77 @@
 const VERSION = 0.0
 
+function runPractice(timeline) {
+   timeline.push(mazeInstructions());
+   timeline.push(continueInstructions(`<br><br><br><h1>Click continue to begin!</h1><br>`, resetMazeVars));
+   timeline.push(practiceMaze(practiceItems1, rewarded = true));
+   timeline.push(continueInstructions(`<br><br><br><h1>Nice, you found a gold coin, and won a dollar bonus!</h1><br>`));
+   timeline.push(wmInstructions())
+   timeline.push(wmPractice(wmPracticeSet))
+   timeline.push(continueInstructions(`<br><br><br><h1>Now let's do a second practice maze!</h1><br>`, resetMazeVars));
+   timeline.push(practiceMaze(practiceItems2, rewarded = false));
+}
+
+function runEncoding(timeline) {
+   timeline.push(continueInstructions(`<br><br><br><h1> That's it for practice, now you will start the first maze! <br><br> Maze 1 / 22 <br><br> </h1>`, resetMazeVars));
+
+   var itemsIndex = 0;
+   _.each([0, 1, 2,
+      // 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+   ], function (i) {
+      var mazeLength = mazeLengths[i];
+      var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
+      itemsIndex += mazeLength;
+      timeline.push(practiceMaze(items, rewarded = mazeRewarded[i]));
+      itemsIndex += mazeLengths[i];
+      timeline.push(blankScreen());
+      timeline.push(wmTask(wmDisplaySets[i]))
+      timeline.push(startMaze(`<br><br><br><h1> Now you will start the next maze! <br><br> Maze ${i + 2} / 22 <br><br> </h1>`, resetMazeVars));
+   });
+}
+
+var breakTrial = {
+   type: jsPsychVideoKeyboardResponse,
+   stimulus: ['https://d3uxkvynwb06gu.cloudfront.net/movieIS_5min.mp4'],
+   autoplay: true,
+   choices: [' '],
+   on_load: function () {
+      var video = $('#jspsych-video-keyboard-response-stimulus');
+      video.muted = true;
+   },
+   trial_ends_after_video: true
+};
+
+function parseQuery(queryString) {
+   var query = {};
+   var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+   for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split('=');
+      query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+   }
+   return query;
+}
+
+function resetMazeVars() {
+   step = 0;
+   seenSpaces = {};
+   scene = getOriginalScene();
+};
+
+function kickOffSpatialTest() {
+   step = 0;
+   misses = _.shuffle(misses);
+   hits = _.shuffle(hits);
+
+   spatialTestList = hits.slice(0, 90);
+
+   if (spatialTestList.length < 90) {
+      const itemsNeeded = 90 - spatialTestList.length;
+      const missedToAdd = misses.slice(0, itemsNeeded);
+      spatialTestList = spatialTestList.concat(missedToAdd);
+   }
+   spatialTestList = _.shuffle(spatialTestList);
+};
+
 function startMaze(instructionsHTML, on_start) {
       return {
          type: jsPsychHtmlKeyboardResponse,
