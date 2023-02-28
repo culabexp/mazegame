@@ -93,7 +93,6 @@ function moveSpatialTestItem(){
     response_ends_trial: true,
     choices: function () {
       var prev_data = jsPsych.data.get().last(1).values()[0];
-      console.log('step', prev_data)
       var move = prev_data['response'];
       if (move == 'arrowup') {
         y = y - 1;

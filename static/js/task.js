@@ -17,19 +17,19 @@ const filename = `${jspsychID}_${date}.csv`;
 // grab worker info
 getWorkerInfo()
 
-// PRELOAD, consent, demographics
-timeline.push(preload)
-timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
-timeline.push(demographicsQuestions());
+// // PRELOAD, consent, demographics
+// timeline.push(preload)
+// timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+// timeline.push(demographicsQuestions());
 
-// PRACTICE
-runPractice(timeline)
+// // PRACTICE
+// runPractice(timeline)
 
-// ENCODING
-runEncoding(timeline)
+// // ENCODING
+// runEncoding(timeline)
 
-//  BREAK
-timeline.push(breakTrial);
+// //  BREAK
+// timeline.push(breakTrial);
 
 //  TEST
 runTest(timeline)
