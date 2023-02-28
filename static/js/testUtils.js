@@ -64,7 +64,7 @@ function confidence(img){
   };
   return trial;
 }
-const spatialTestPrompt = '<h4>Using the arrow keys, move the item to where you remember seeing it in the Maze Game.<br> Press the <b>spacebar</b> to finalize your answer</h4>'
+const spatialTestPrompt = "<h4>Using the arrow keys, move the item to where you remember seeing it in the Maze Game. If you don't remember exactly where the item was, try to get it as close as possible. <br><br> Press the <b>spacebar</b> to finalize your answer</h4>"
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
