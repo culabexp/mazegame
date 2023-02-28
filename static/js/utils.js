@@ -42,7 +42,6 @@ prompt:
 // }
 
 function getWorkerInfo() {
-   const url = window.location.href;
    var queryString = url.split('?')[1]
    const queryStringDict = parseQuery(queryString);
 

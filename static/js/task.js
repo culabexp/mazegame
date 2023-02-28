@@ -2,6 +2,7 @@ const debug = true;
 const jsPsych = initJsPsych();
 const timeline = [];
 var completionCode = null;
+const url = window.location.href;
 
 //  INIT MAZE VARS
 mazeLengths = _.shuffle(mazeLengths);
@@ -11,6 +12,7 @@ mazeRewarded = _.shuffle(mazeRewarded);
 wmDisplaySets = _.shuffle(wmDisplaySets);
 var scene = getOriginalScene();
 
+//  INIT MAZE VARS for debug testing
 if (debug){
     mazeIndices = mazeIndices.slice(0, 2)
     mazeLengths[0] = 2;
@@ -23,12 +25,13 @@ if (debug){
     mazeItems = _.shuffle(mazeItems);
 }
 
-console.log("encode items in before test", encodeItems);
-
-const jspsychID = jsPsych.randomization.randomID(10);
+var jspsychID = jsPsych.randomization.randomID(10);
+if (!_.include(url, 'culabexp')) {
+    jspsychID = 'local_' + jspsychID;
+}
 const date = new Date().toISOString()
 const filename = `${jspsychID}_${date}.csv`;
-const encode_filename = `encode_${jspsychID}_${date}.csv`;
+
 
 
 // grab worker info
