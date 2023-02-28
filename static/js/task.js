@@ -1,6 +1,7 @@
-const debug = false;
+const debug = true;
 const jsPsych = initJsPsych();
 const timeline = [];
+var completionCode = null;
 
 //  INIT MAZE VARS
 mazeLengths = _.shuffle(mazeLengths);
@@ -12,11 +13,19 @@ var scene = getOriginalScene();
 
 if (debug){
     mazeIndices = mazeIndices.slice(0, 2)
-    mazeItems = mazeItems.slice(0, 12)
+    mazeLengths[0] = 2;
+    mazeLengths[1] = 3;
+    const numEnocdeItems = mazeLengths[0] + mazeLengths[1]
+    encodeItems = mazeItems.slice(0, numEnocdeItems);
+    mazeItems = mazeItems.slice(0, numEnocdeItems+10);
+    
+    encodeItems = _.shuffle(encodeItems);
+    mazeItems = _.shuffle(mazeItems);
 }
 
+console.log("encode items in before test", encodeItems);
+
 const jspsychID = jsPsych.randomization.randomID(10);
-const completionCode = jsPsych.randomization.randomID(10);
 const date = new Date().toISOString()
 const filename = `${jspsychID}_${date}.csv`;
 const encode_filename = `encode_${jspsychID}_${date}.csv`;
@@ -38,19 +47,21 @@ if (!debug) {
 }
 
 // // // ENCODING
-runEncoding(timeline)
+// runEncoding(timeline)
 
 // INTERMEDIATE SAVE 
-timeline.push(saveData(encode_filename))
+timeline.push(saveData('encode_'+filename))
 
 // // //  BREAK
-timeline.push(breakTrial);
+if (!debug) {
+    timeline.push(breakTrial);
+}
 
 // //  TEST
 runTest(timeline)
 
 // SAVE DATA, END
 timeline.push(getFeedback());
-timeline.push(saveData(filename))
-timeline.push(continueInstructions(`End of task - thanks for participating!<br><br> The completion code is: ${completionCode}<br><br>`));
+timeline.push(saveData(filename));
+timeline.push(endTask());
 jsPsych.run(timeline);

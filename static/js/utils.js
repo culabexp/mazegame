@@ -1,15 +1,45 @@
 const VERSION = 0.0;
 OSF_PROJECT_ID = "CF9IOlD9MkXj";
 
-function saveData(){
+// function generate() {
+//    console.log('in generate')
+//    completionCode = 'abc' + jsPsych.randomization.randomID(10) + 'mhe9o8w' + jsPsych.randomization.randomID(4);
+//    addCodeToCsv();
+// }
+function endTask() {
+   var trial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+         return `End of task - thanks for participating!<br><br> The completion code is: ${completionCode}<br><br>`
+      },
+      choices: ['Continue']
+   };
+   return trial;
+}
+
+function saveData(filename){
   return {
       type: jsPsychPipe,
+      on_load: function(){
+         completionCode = 'abc' + jsPsych.randomization.randomID(10) + 'mhe9o8w' + jsPsych.randomization.randomID(4);
+         jsPsych.data.addProperties({
+            completionCode: completionCode,
+         });
+      },
       action: "save",
       experiment_id: OSF_PROJECT_ID,
       filename: filename,
       data_string: () => jsPsych.data.get().csv()
    };
 };
+
+prompt: 
+
+// function addCodeToData() {
+//    jsPsych.data.addProperties({
+//       completionCode: completionCode,
+//    });
+// }
 
 function getWorkerInfo() {
    const url = window.location.href;
@@ -21,7 +51,6 @@ function getWorkerInfo() {
       condition: 0,
       // this adds a property called 'subject' to every trial
       jspsychsubject: jspsychID,
-      completioncode: completionCode,
       subject: queryStringDict['workerId'],
       hit: queryStringDict['hitId'],
       assignment: queryStringDict['assignmentId'],

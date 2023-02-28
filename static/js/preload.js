@@ -19,7 +19,6 @@ var colors = ['static/images/light_gray.png',
     'static/images/orange.jpg',
     'static/images/yellow.jpg',];
 
-
 var preload = {
     type: jsPsychPreload,
     images: practiceItems1.concat(mazeItems).concat(mazeEndItems).concat(practiceItems2).concat(colors),
