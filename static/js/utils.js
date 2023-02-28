@@ -73,6 +73,7 @@ function runTest(timeline){
 
    // PHASE 2 old/new test
    _.each(mazeItems, function (x, index) {
+      timeline.push(testItemNoChoices(x, index))
       timeline.push(oldNew(x, index))
       timeline.push(confidence(x))
    });

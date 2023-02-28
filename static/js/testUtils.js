@@ -51,6 +51,18 @@ function oldNew(img, index){
   return trial;
 }
 
+function testItemNoChoices(img) {
+  var trial = {
+    type: jsPsychImageButtonResponse,
+    margin_horizontal: '20px',
+    margin_vertical: '0px',
+    trial_duration: 1500, 
+    stimulus: function () { return img },
+    choices: [],
+  };
+  return trial;
+}
+
 function confidence(img){
   var trial = {
 		 prompt: "<h2>How confident are you in your previous answer?</h2>",
