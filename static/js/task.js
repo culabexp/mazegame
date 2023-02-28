@@ -36,8 +36,7 @@ timeline.push(breakTrial);
 runTest(timeline)
 
 // SAVE DATA, END
-timeline.push(saveData(filename))
 timeline.push(getFeedback());
+timeline.push(saveData(filename))
 timeline.push(continueInstructions(`End of task - thanks for participating!<br><br> The completion code is: ${completionCode}<br><br>`));
-
 jsPsych.run(timeline);
