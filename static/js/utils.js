@@ -1,11 +1,14 @@
-const VERSION = 0.0
+const VERSION = 0.0;
+OSF_PROJECT_ID = "CF9IOlD9MkXj";
 
-const save_data = {
-   type: jsPsychPipe,
-   action: "save",
-   experiment_id: OSF_PROJECT_ID,
-   filename: filename,
-   data_string: () => jsPsych.data.get().csv()
+function saveData(){
+  return {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: OSF_PROJECT_ID,
+      filename: filename,
+      data_string: () => jsPsych.data.get().csv()
+   };
 };
 
 function getWorkerInfo() {

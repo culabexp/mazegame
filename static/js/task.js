@@ -1,5 +1,3 @@
-OSF_PROJECT_ID = "CF9IOlD9MkXj";
-
 const jsPsych = initJsPsych();
 const timeline = [];
 
@@ -43,7 +41,7 @@ timeline.push(demographicsQuestions());
 
 
 // save data
-timeline.push(save_data)
+timeline.push(saveData(filename))
 timeline.push(getFeedback());
 timeline.push(continueInstructions('End of task - thanks for participating!'));
 jsPsych.run(timeline);
