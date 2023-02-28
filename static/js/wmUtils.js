@@ -45,7 +45,7 @@ function wmTask(displaySet) {
         timeline: [
             {
                 type: jsPsychHtmlKeyboardResponse,
-                trial_duration: 2000,
+                trial_duration: 1750,
                 response_ends_trial: false,
                 data: { trial_type: displaySet[0]['type'] },
                 stimulus: sceneToHtml(getScene(displaySet[0]))
@@ -76,7 +76,7 @@ function wmPractice(displaySet) {
         timeline: [
             {
                 type: jsPsychHtmlKeyboardResponse,
-                trial_duration: 2000,
+                trial_duration: 1750,
                 response_ends_trial: false,
                 data: { trial_type: displaySet[0]['type'] },
                 stimulus: sceneToHtml(getScene(displaySet[0]))

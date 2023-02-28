@@ -136,7 +136,7 @@ function kickOffSpatialTest() {
 function startMaze(instructionsHTML, on_start) {
       return {
          type: jsPsychHtmlKeyboardResponse,
-         trial_duration: 1000,
+         trial_duration: 350,
          response_ends_trial: false,
          stimulus: instructionsHTML,
          on_start: on_start,

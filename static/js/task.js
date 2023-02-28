@@ -29,6 +29,9 @@ runPractice(timeline)
 // // // ENCODING
 runEncoding(timeline)
 
+// INTERMEDIATE SAVE 
+timeline.push(saveData(filename))
+
 // // //  BREAK
 timeline.push(breakTrial);
 
