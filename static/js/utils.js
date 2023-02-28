@@ -46,7 +46,7 @@ function runEncoding(timeline) {
 
    var itemsIndex = 0;
    _.each([0, 1, 2,
-      // 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+      3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
    ], function (i) {
       var mazeLength = mazeLengths[i];
       var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
@@ -70,7 +70,7 @@ function runTest(timeline){
    mazeItems = _.shuffle(mazeItems);
 
    // PHASE 2 old/new test
-   _.each(mazeItems.slice(0, 6), function (x, index) {
+   _.each(mazeItems, function (x, index) {
       timeline.push(oldNew(x, index))
       timeline.push(confidence(x))
    });
