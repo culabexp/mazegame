@@ -144,7 +144,6 @@ function showBlankSquareConditional(items) {
     }
 }
 
-
 function selectMoveLoop(){
     var loop_node = {
         timeline: [
@@ -207,7 +206,11 @@ function practiceMaze(items, rewarded, index){
     }
 
     var trials = {
-        data: { index: index, rewarded: rewarded },
+        data: { mazeIndex: index, 
+                rewarded: rewarded, 
+                items: items, 
+                mazeLength: items.length-1 
+            },
         type: jsPsychHtmlKeyboardResponse,
         timeline: [
             showItemLoop(items, index),
