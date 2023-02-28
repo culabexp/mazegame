@@ -10,38 +10,36 @@ breakLength = _.shuffle(breakLength);
 wmDisplaySets = _.shuffle(wmDisplaySets);
 var scene = getOriginalScene();
 
-
 const jspsychID = jsPsych.randomization.randomID(10);
 const date = new Date().toISOString()
 const filename = `${jspsychID}_${date}.csv`;
 
 // grab worker info
-
 getWorkerInfo()
 
-// //  PRELOAD
+// PRELOAD
 timeline.push(preload)
-// // consent
-// timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
-// // demographics
+// consent
+timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+// demographics
 timeline.push(demographicsQuestions());
 
 // PRACTICE
-// runPractice(timeline)
+runPractice(timeline)
 
-// // ENCODING
-// runEncoding(timeline)
+// ENCODING
+runEncoding(timeline)
 
 //  BREAK
 // participants watch a 5 min movie
-// timeline.push(breakTrial);
+timeline.push(breakTrial);
 
 //  TEST
-// runTest(timeline)
+runTest(timeline)
 
-
-// save data
+// SAVE DATA, END
 timeline.push(saveData(filename))
 timeline.push(getFeedback());
 timeline.push(continueInstructions('End of task - thanks for participating!'));
+
 jsPsych.run(timeline);
