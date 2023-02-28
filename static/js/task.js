@@ -19,6 +19,8 @@ const jspsychID = jsPsych.randomization.randomID(10);
 const completionCode = jsPsych.randomization.randomID(10);
 const date = new Date().toISOString()
 const filename = `${jspsychID}_${date}.csv`;
+const encode_filename = `encode_${jspsychID}_${date}.csv`;
+
 
 // grab worker info
 getWorkerInfo()
@@ -39,7 +41,7 @@ if (!debug) {
 runEncoding(timeline)
 
 // INTERMEDIATE SAVE 
-timeline.push(saveData(filename))
+timeline.push(saveData(encode_filename))
 
 // // //  BREAK
 timeline.push(breakTrial);
