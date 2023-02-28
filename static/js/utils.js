@@ -49,9 +49,15 @@ function runEncoding(timeline) {
    var itemsIndex = 0;
    _.each(mazeIndices, function (i) {
       var mazeLength = mazeLengths[i];
+      // console.log('\N new maze')
+      // console.log('itemsIndex', itemsIndex)
+      // console.log('mazeLength', mazeLength)
+      // console.log('itemsIndex + mazeLength', itemsIndex + mazeLength)
       var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
-      itemsIndex += mazeLength;
+      // console.log('items lenth', items.length);
+      // console.log('equal???', mazeLength==items.length);
       timeline.push(practiceMaze(items, rewarded = mazeRewarded[i]));
+      
       itemsIndex += mazeLengths[i];
       timeline.push(blankScreen());
       timeline.push(wmTask(wmDisplaySets[i]))

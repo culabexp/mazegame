@@ -11,7 +11,7 @@ wmDisplaySets = _.shuffle(wmDisplaySets);
 var scene = getOriginalScene();
 
 if (debug){
-    mazeIndices = mazeIndices.slice(0, 1)
+    mazeIndices = mazeIndices.slice(0, 2)
     mazeItems = mazeItems.slice(0, 12)
 }
 
@@ -25,11 +25,15 @@ getWorkerInfo()
 
 // // PRELOAD, consent, demographics
 timeline.push(preload)
-timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
-timeline.push(demographicsQuestions());
+if (!debug) {
+    timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
+    timeline.push(demographicsQuestions());
+}
 
 // // // PRACTICE
-runPractice(timeline)
+if (!debug) {
+    runPractice(timeline)
+}
 
 // // // ENCODING
 runEncoding(timeline)
