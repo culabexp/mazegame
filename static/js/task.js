@@ -17,11 +17,9 @@ const filename = `${jspsychID}_${date}.csv`;
 // grab worker info
 getWorkerInfo()
 
-// PRELOAD
+// PRELOAD, consent, demographics
 timeline.push(preload)
-// consent
 timeline.push(continueInstructions(`<br><br><br><h1>Please review the consent form and press continue to agree</h1><br><img src="static/images/consent1.png" width="425" height="550"><img src="static/images/consent2.png"  width="425" height="550"> <br><br>`))
-// demographics
 timeline.push(demographicsQuestions());
 
 // PRACTICE
@@ -31,7 +29,6 @@ runPractice(timeline)
 runEncoding(timeline)
 
 //  BREAK
-// participants watch a 5 min movie
 timeline.push(breakTrial);
 
 //  TEST
