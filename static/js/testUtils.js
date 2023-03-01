@@ -11,6 +11,19 @@ function onFinishSpatialTrial(data) {
   data['moves'] = moves;
   data['showing'] = scene[y][x];
   data['item'] = spatialTestList[step];
+  onFinishTestTrial(data);
+}
+
+function onFinishTestTrial(data){
+  const item = data['item'];
+  if (item in encodeInfoStore){
+    data['maze_rewarded'] = encodeInfoStore[item]['maze_rewarded'];
+    data['maze_location_x'] = encodeInfoStore[item]['maze_location_x'];
+    data['maze_location_y'] = encodeInfoStore[item]['maze_location_y'];
+    data['maze_index'] = encodeInfoStore[item]['maze_index'];
+    data['maze_step'] = encodeInfoStore[item]['maze_step'];
+    data['maze_length'] = encodeInfoStore[item]['maze_length'];
+  }
 }
 
 const confidenceChoices = ['guess',
@@ -30,6 +43,7 @@ function oldNew(img, index){
     stimulus: function(){return img},
     choices: ['old', 'new'],
     on_finish: function(data){
+      onFinishTestTrial(data);
       data['response'] = oldNew_choices[data['response']];
       var itemIsOld = _.include(encodeItems, img);
       var itemIsNew = (!itemIsOld);
@@ -78,6 +92,7 @@ function confidence(img){
     stimulus: function(){return img},
     choices: confidenceChoices,
     on_finish: function(data){
+      onFinishTestTrial(data);
       data['response'] = confidenceChoices[data['response']];
     }
   };
@@ -179,10 +194,6 @@ function spatialTestItemLoop() {
 
 function runSpatialTest() {
   var trials = {
-    // data: { items: spatialTestList },
-    // on_finish: function(data){
-    //   data['items'] = spatialTestList
-    // },
     timeline: [
       spatialTestItemLoop(),
     ]

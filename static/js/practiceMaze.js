@@ -92,6 +92,13 @@ function showMazeItem(items){
             step = step + 1;
             scene[y][x] = nextItem;
 
+            encodeInfoStore[nextItem] = {'maze_rewarded': prev_data['rewarded'], 
+                                         'maze_location_x': x, 
+                                         'maze_location_y': y, 
+                                         'maze_index': prev_data['maze_index'], 
+                                         'maze_length': prev_data['maze_length'], 
+                                         'maze_step': step,}
+
             return sceneToHtml(scene);
         },
     }
@@ -219,12 +226,11 @@ function practiceMaze(currMazeItems, rewarded, index){
         currMazeItems.push("static/images/mazeover.jpg");
     }
     items = currMazeItems;
-    console.log('practiceMaze', items);
     var trials = {
         data: { maze_index: index, 
                 rewarded: rewarded, 
                 items: items, 
-                mazeLength: items.length-1 ,
+                maze_length: items.length-1 ,
                 phase: 'encode',
                 trial_subtype: 'maze',
             },

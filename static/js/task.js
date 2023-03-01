@@ -3,6 +3,7 @@ const jsPsych = initJsPsych();
 const timeline = [];
 var completionCode = null;
 const url = window.location.href;
+var encodeInfoStore = {}
 
 //  INIT MAZE VARS
 mazeLengths = _.shuffle(mazeLengths);
@@ -24,7 +25,6 @@ if (debug){
     encodeItems = _.shuffle(encodeItems);
     mazeItems = _.shuffle(mazeItems);
 }
-console.log('encode items', encodeItems);
 var jspsychID = jsPsych.randomization.randomID(10);
 if (!_.include(url, 'culabexp')) {
     jspsychID = 'local_' + jspsychID;
@@ -50,10 +50,10 @@ if (!debug) {
 }
 
 // // // ENCODING
-// runEncoding(timeline)
+runEncoding(timeline)
 
 // INTERMEDIATE SAVE 
-// timeline.push(saveData('encode_'+filename))
+timeline.push(saveData('encode_'+filename))
 
 // // //  BREAK
 if (!debug) {
