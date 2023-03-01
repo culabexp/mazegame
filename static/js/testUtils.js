@@ -2,34 +2,28 @@ const oldNew_choices = ['old', 'new'];
 var hits = [];
 var misses = [];
 var selected_space =  null;
+var moves = 0;
+
+function onFinishSpatialTrial(data) {
+  data['x'] = x;
+  data['y'] = y;
+  data['step'] = step;
+  data['moves'] = moves;
+  data['showing'] = scene[y][x];
+  data['item'] = spatialTestList[step];
+}
 
 const confidenceChoices = ['guess',
                            'pretty certain',
                            'very certain',
                            'completely certain'];
 
-function recordSpatialTestMove(item, location, response, rt){
- const last_trial =  jsPsych.data.getLastTrialData().values()[0];
- onFinish({
-   phase: 'spatial_test',
-   trial_type: 'move',
-		subject: last_trial['subject'],
-		condition: last_trial['condition'],
-		stimulus: item,
-   location: location,
-   response: response,
-		time_elapsed: jsPsych.totalTime(),
-		expStartTime: jsPsych.startTime(),
-    rt: rt,
-   trial_index: trial_index,
-	});
-}
 
 
 function oldNew(img, index){
   var trial = {
     prompt: `<h2>${index+1}. Is this image old or new?</h2>`,
-    data: { 'phase': 'test', 'trial_subtype': 'old_new' }, 
+    data: { 'phase': 'test', 'trial_subtype': 'old_new', 'item': img }, 
     type: jsPsychImageButtonResponse,
     margin_horizontal:'20px',
     margin_vertical:'0px',
@@ -80,22 +74,23 @@ function confidence(img){
   var trial = {
 		 prompt: "<h2>How confident are you in your previous answer?</h2>",
 		type: jsPsychImageButtonResponse,
-    data: { 'phase': 'test', 'trial_subtype': 'confidence' }, 
+    data: { 'phase': 'test', 'trial_subtype': 'confidence', 'item': img }, 
     stimulus: function(){return img},
     choices: confidenceChoices,
     on_finish: function(data){
-      const respIndex = data['response'];
       data['response'] = confidenceChoices[data['response']];
     }
   };
   return trial;
 }
+
 const spatialTestPrompt = "<h4>Using the arrow keys, move the item to where you remember seeing it in the Maze Game. If you don't remember exactly where the item was, try to get it as close as possible. <br><br> Press the <b>spacebar</b> to finalize your answer</h4>"
 function showSpatialTestItem() {
   return {
     type: jsPsychHtmlKeyboardResponse,
     data: { 'phase': 'test', 'trial_subtype': 'spatial_test' }, 
     response_ends_trial: true,
+    on_finish: onFinishSpatialTrial,
     choices: function () {
       x = _.random(4);
       y = _.random(4);
@@ -118,7 +113,8 @@ function moveSpatialTestItem(){
   return {
     type: jsPsychHtmlKeyboardResponse,
     response_ends_trial: true,
-    data: { 'phase': 'test', 'trial_subtype': 'spatial_test' }, 
+    data: { 'phase': 'test', 'trial_subtype': 'spatial_test' },
+    on_finish: onFinishSpatialTrial, 
     choices: function () {
       var prev_data = jsPsych.data.get().last(1).values()[0];
       var move = prev_data['response'];
@@ -142,6 +138,7 @@ function moveSpatialTestItem(){
     stimulus: function () {
       var scene = getOriginalScene();
       var item = spatialTestList[step];
+      moves += 1;
       scene[y][x] = item;
       return spatialTestPrompt + sceneToHtml(scene);
     },
@@ -156,7 +153,9 @@ function moveSpatialTestItemLoop() {
       if (res !=' ') {
         return true;
       } else {
+        //  when the response is a space bar we move on to the next trial
         step += 1;
+        moves = 0;
         return false;
       }
     }
@@ -180,6 +179,10 @@ function spatialTestItemLoop() {
 
 function runSpatialTest() {
   var trials = {
+    // data: { items: spatialTestList },
+    // on_finish: function(data){
+    //   data['items'] = spatialTestList
+    // },
     timeline: [
       spatialTestItemLoop(),
     ]

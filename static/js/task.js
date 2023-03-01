@@ -19,7 +19,7 @@ if (debug){
     mazeLengths[1] = 3;
     const numEnocdeItems = mazeLengths[0] + mazeLengths[1]
     encodeItems = mazeItems.slice(0, numEnocdeItems);
-    mazeItems = mazeItems.slice(0, numEnocdeItems+10);
+    mazeItems = mazeItems.slice(0, numEnocdeItems+5);
     
     encodeItems = _.shuffle(encodeItems);
     mazeItems = _.shuffle(mazeItems);
@@ -50,10 +50,10 @@ if (!debug) {
 }
 
 // // // ENCODING
-runEncoding(timeline)
+// runEncoding(timeline)
 
 // INTERMEDIATE SAVE 
-timeline.push(saveData('encode_'+filename))
+// timeline.push(saveData('encode_'+filename))
 
 // // //  BREAK
 if (!debug) {
