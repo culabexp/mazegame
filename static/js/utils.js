@@ -52,7 +52,7 @@ function runPractice(timeline) {
    timeline.push(mazeInstructions());
    timeline.push(continueInstructions(`<br><br><br><h1>Click continue to begin!</h1><br>`, resetMazeVars));
    timeline.push(practiceMaze(practiceItems1, rewarded = true, index='practice1'));
-   timeline.push(continueInstructions(`<br><br><br><h1>Nice, you found a gold coin, and won a dollar bonus!</h1><br>`));
+   timeline.push(continueInstructions(`<br><br><br><h1>Nice, you found a gold coin, and won a 50 cent bonus!</h1><br>`));
    timeline.push(wmInstructions())
    timeline.push(wmPractice(wmPracticeSet))
    timeline.push(continueInstructions(`<br><br><br><h1>Now let's do a second practice maze!</h1><br>`, resetMazeVars));
