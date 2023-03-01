@@ -24,7 +24,7 @@ if (debug){
     encodeItems = _.shuffle(encodeItems);
     mazeItems = _.shuffle(mazeItems);
 }
-
+console.log('encode items', encodeItems);
 var jspsychID = jsPsych.randomization.randomID(10);
 if (!_.include(url, 'culabexp')) {
     jspsychID = 'local_' + jspsychID;

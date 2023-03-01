@@ -45,7 +45,12 @@ function onFinishMazeTrial(data, maze_subtype){
     data['x'] = x;
     data['y'] = y;
     data['step'] = step;
-    data['item'] = scene[y][x];
+    data['showing'] = scene[y][x];
+    if (step==0){
+        data['item'] = null;
+    } else {
+        data['item'] = data['items'][step-1];
+    }
     data['repeat'] = repeat;
     data['maze_subtype'] = maze_subtype;
 }
@@ -207,13 +212,14 @@ var end_maze_loop = {
     }
 }
 
-function practiceMaze(items, rewarded, index){
+function practiceMaze(currMazeItems, rewarded, index){
     if (rewarded) {
-        items.push("static/images/23.jpg");
+        currMazeItems.push("static/images/23.jpg");
     } else {
-        items.push("static/images/mazeover.jpg");
+        currMazeItems.push("static/images/mazeover.jpg");
     }
-
+    items = currMazeItems;
+    console.log('practiceMaze', items);
     var trials = {
         data: { maze_index: index, 
                 rewarded: rewarded, 
