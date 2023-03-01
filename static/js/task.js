@@ -50,7 +50,7 @@ if (!debug) {
 }
 
 // // // ENCODING
-// runEncoding(timeline)
+runEncoding(timeline)
 
 // INTERMEDIATE SAVE 
 timeline.push(saveData('encode_'+filename))

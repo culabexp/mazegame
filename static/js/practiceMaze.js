@@ -78,6 +78,7 @@ function showMazeItem(items){
             }
             step = step + 1;
             scene[y][x] = nextItem;
+
             return sceneToHtml(scene);
         },
     }

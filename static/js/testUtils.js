@@ -37,35 +37,27 @@ function oldNew(img, index){
     choices: ['old', 'new'],
     on_finish: function(data){
       data['response'] = oldNew_choices[data['response']];
-      console.log("encode items in tets", img);
       var itemIsOld = _.include(encodeItems, img);
-      console.log('item is old', itemIsOld )
       var itemIsNew = (!itemIsOld);
-      console.log('item is new', itemIsNew)
       if ((data['response'] == 'old')&(itemIsOld)){
         data['grade'] = 'hit';
         data['correct'] = 1;
         data['display_type'] = 'old';
-        console.log('hit')
         hits.push(img);
       } else if ((data['response'] == 'new')&(itemIsOld)){
         data['grade'] = 'miss';
         data['correct'] = 0;
         data['display_type'] = 'old';
-        console.log('miss')
         misses.push(img);
       } else if ((data['response'] == 'new') & (itemIsNew)) {
-        console.log('correct_reject')
         data['grade'] = 'correct_reject';
         data['correct'] = 1;
         data['display_type'] = 'new';
       } else if ((data['response'] == 'old') & (itemIsNew)) {
-        console.log('false_alarm')
         data['grade'] = 'false_alarm';
         data['correct'] = 0;
         data['display_type'] = 'new';
       }
-
     }
   };
   return trial;

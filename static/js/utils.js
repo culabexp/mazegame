@@ -1,11 +1,6 @@
 const VERSION = 0.0;
 OSF_PROJECT_ID = "CF9IOlD9MkXj";
 
-// function generate() {
-//    console.log('in generate')
-//    completionCode = 'abc' + jsPsych.randomization.randomID(10) + 'mhe9o8w' + jsPsych.randomization.randomID(4);
-//    addCodeToCsv();
-// }
 function endTask() {
    var trial = {
       type: jsPsychHtmlKeyboardResponse,
@@ -33,13 +28,6 @@ function saveData(filename){
    };
 };
 
-prompt: 
-
-// function addCodeToData() {
-//    jsPsych.data.addProperties({
-//       completionCode: completionCode,
-//    });
-// }
 
 function getWorkerInfo() {
    var queryString = url.split('?')[1]
@@ -77,13 +65,7 @@ function runEncoding(timeline) {
    var itemsIndex = 0;
    _.each(mazeIndices, function (i) {
       var mazeLength = mazeLengths[i];
-      // console.log('\N new maze')
-      // console.log('itemsIndex', itemsIndex)
-      // console.log('mazeLength', mazeLength)
-      // console.log('itemsIndex + mazeLength', itemsIndex + mazeLength)
-      var items = mazeItems.slice(itemsIndex, itemsIndex + mazeLength)
-      // console.log('items lenth', items.length);
-      // console.log('equal???', mazeLength==items.length);
+      var items = encodeItems.slice(itemsIndex, itemsIndex + mazeLength);
       timeline.push(practiceMaze(items, rewarded = mazeRewarded[i], index=i));
       
       itemsIndex += mazeLengths[i];
