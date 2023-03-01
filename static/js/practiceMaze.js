@@ -17,7 +17,7 @@ function isRewarded(items){
 
 var late_trial = {
     type: jsPsychHtmlKeyboardResponse,
-    data: { scene: scene, x: x, y: y, step: step },
+    data: { x: x, y: y, step: step },
     trial_duration: 2000,
     response_ends_trial: false,
     stimulus: function() {
@@ -48,7 +48,6 @@ function showMazeItem(items){
         response_ends_trial: false,
         save_trial_parameters: {trial_duration: true},
         on_finish: function(data){
-            data['scene'] = scene;
             data['x'] = x;
             data['y'] = y;
             data['step'] = step;
@@ -67,7 +66,7 @@ function showMazeItem(items){
             } else if (move == 'arrowright') {
                 x = x + 1;
             }
-            var scene = getOriginalScene();
+            scene = getOriginalScene();
             if (_.contains(Object.keys(seenSpaces), `${x}${y}`)){
                 var nextItem = seenSpaces[`${x}${y}`];
                 repeat = true;
@@ -90,7 +89,7 @@ function showSelector(){
         type: jsPsychHtmlKeyboardResponse,
         trial_duration: 2000,
         response_ends_trial: true,
-        data: { x: x, y: y, scene: scene, step: step },
+        data: { x: x, y: y, step: step },
         choices: function(){
             if (started==false) {
                 started=true;
@@ -115,7 +114,7 @@ function showSelector(){
 function showBlankSquare() {
     return {
         type: jsPsychHtmlKeyboardResponse,
-        data: { x: x, y: y, scene: scene, step: step },
+        data: { x: x, y: y, step: step },
         trial_duration: function(){
             var time_options = [.5, 1, 1.5, 2, 2.5, 3, 3.5];
             var blank_screen_seconds = _.sample(time_options, [1])[0];
