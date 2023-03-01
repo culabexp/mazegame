@@ -17,7 +17,7 @@ function isRewarded(items){
 
 var late_trial = {
     type: jsPsychHtmlKeyboardResponse,
-    data: { x: x, y: y, step: step },
+    data: { x: x, y: y, step: step, maze_subtype: 'late' },
     trial_duration: 2000,
     response_ends_trial: false,
     stimulus: function() {
@@ -53,6 +53,7 @@ function showMazeItem(items){
             data['step'] = step;
             data['item'] = scene[y][x];
             data['repeat'] = repeat;
+            data['maze_subtype'] = 'show';
         },
         stimulus: function(){
             var prev_data = jsPsych.data.get().last(1).values()[0];            
@@ -89,7 +90,7 @@ function showSelector(){
         type: jsPsychHtmlKeyboardResponse,
         trial_duration: 2000,
         response_ends_trial: true,
-        data: { x: x, y: y, step: step },
+        data: { x: x, y: y, step: step, maze_subtype: 'select' },
         choices: function(){
             if (started==false) {
                 started=true;
@@ -114,7 +115,7 @@ function showSelector(){
 function showBlankSquare() {
     return {
         type: jsPsychHtmlKeyboardResponse,
-        data: { x: x, y: y, step: step },
+        data: { x: x, y: y, step: step, maze_subtype: 'blank' },
         trial_duration: function(){
             var time_options = [.5, 1, 1.5, 2, 2.5, 3, 3.5];
             var blank_screen_seconds = _.sample(time_options, [1])[0];
